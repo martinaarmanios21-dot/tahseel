@@ -70,6 +70,15 @@ function SummaryPage() {
           ))}
         </div>
       </div>
+      {data.automation && data.automation.handled_automatically > 0 && (
+        <div className="card-soft mt-6 flex items-center gap-4 p-6">
+          <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-primary-soft text-primary"><Clock className="size-6" /></span>
+          <div>
+            <h2 className="text-lg font-bold">{t("timeSavedTitle", { h: data.automation.hours_saved_estimate })}</h2>
+            <p className="text-muted-foreground">{t("timeSavedText", { a: data.automation.handled_automatically, p: data.automation.needed_a_person, m: data.automation.minutes_per_followup })}</p>
+          </div>
+        </div>
+      )}
       <div className="card-soft mt-6 flex items-center gap-4 p-6">
         <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-success/10 text-success"><TrendingUp className="size-6" /></span>
         <div>

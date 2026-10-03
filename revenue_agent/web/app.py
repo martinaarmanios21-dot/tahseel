@@ -385,6 +385,16 @@ def summary(business: str | None = None):
                                  "customers": len(rows),
                                  "collected_egp": sum(r["amount_cents"] for r in rows if r["state"] in ("PAID", "PLAN_AGREED")) / 100,
                                  "outstanding_egp": sum(r["amount_cents"] for r in rows if r["state"] not in ("PAID", "PLAN_AGREED")) / 100})
+    # Time saved: follow-ups the assistant completed on its own vs. ones that needed a person.
+    minutes_per_followup = int(os.environ.get("MINUTES_PER_FOLLOWUP", "10"))
+    auto_actions = human_actions = 0
+    if ws:
+        auto_actions = conn.execute(
+            "SELECT COUNT(*) FROM actions WHERE run_id=? AND status='sent' AND kind != 'wait' "
+            "AND (decided_by IS NULL OR decided_by NOT LIKE 'human:%')", (ws["id"],)).fetchone()[0]
+        human_actions = conn.execute(
+            "SELECT COUNT(*) FROM actions WHERE run_id=? AND (status='pending_approval' OR decided_by LIKE 'human:%')",
+            (ws["id"],)).fetchone()[0]
     evals = {}
     for r in db.rows(conn.execute("SELECT skill_version, metrics FROM runs WHERE kind='eval' AND status='completed' ORDER BY started_at")):
         evals[r["skill_version"]] = json.loads(r["metrics"])
@@ -402,6 +412,9 @@ def summary(business: str | None = None):
                   "total_egp": sum(c["amount_cents"] for c in customers) / 100},
         "customers_by_status": counts,
         "needs_your_decision": pending,
+        "automation": {"handled_automatically": auto_actions, "needed_a_person": human_actions,
+                       "minutes_per_followup": minutes_per_followup,
+                       "hours_saved_estimate": round(auto_actions * minutes_per_followup / 60, 1)},
         "businesses": per_business,
         "learning": {
             "first_version": min(evals) if evals else None,

@@ -8,6 +8,7 @@ export interface Summary {
   money: { collected_egp: number; outstanding_egp: number; with_team_egp: number; total_egp: number };
   customers_by_status: Record<Status, number>;
   needs_your_decision: number;
+  automation?: { handled_automatically: number; needed_a_person: number; minutes_per_followup: number; hours_saved_estimate: number };
   businesses: Business[];
   learning: { first_collection_rate: number | null; current_collection_rate: number | null; first_complaints: number | null; current_complaints: number | null; update_waiting_for_approval: number | null; candidate_collection_rate?: number | null; candidate_complaints?: number | null };
 }

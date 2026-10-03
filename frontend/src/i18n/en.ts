@@ -99,6 +99,8 @@ export const en: Dict = {
   undoUpdate: "Undo last update",
   undone: "Back to the previous rules ✓",
   approvedRecheck: "I didn't send it: something changed since I proposed it (e.g. the customer paid). Nothing to do.",
+  timeSavedTitle: "I saved your team about {h} hours",
+  timeSavedText: "I handled {a} follow-ups on my own and needed your decision on only {p}. (Estimate: {m} minutes per manual follow-up)",
   improvingPending: "I tested a new improvement: collection from {a}% to {b}%, complaints from {c} to {d}. It's waiting for your approval.",
   improvingNone: "I haven't tested myself yet. On “What I learned”, press “Let the assistant practise”, then “Let the assistant learn”, to see me improve.",
   reason_safety_tests_failed: "It did not pass every safety test, so I won't apply it.",
