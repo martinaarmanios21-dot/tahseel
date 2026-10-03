@@ -54,6 +54,7 @@ uv run revenue-agent --engine offline demo
 
 # 2) The Tahseel app (Arabic UI) + technical dashboard
 uv run revenue-agent serve          # app: http://127.0.0.1:8000   ·   reviewers: http://127.0.0.1:8000/judges
+                                    # port busy? uv run revenue-agent serve --port 8080
 ```
 
 > **Tip for reviewers:** start with the offline engine. It is instant, deterministic, and doesn't use your free

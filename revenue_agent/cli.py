@@ -188,8 +188,16 @@ def cmd_reset(args) -> int:
 
 
 def cmd_serve(args) -> int:
+    import socket
+
     import uvicorn
-    print(f"Dashboard: http://{args.host}:{args.port}")
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as probe:
+        if probe.connect_ex((args.host, args.port)) == 0:
+            print(f"Port {args.port} is already used by another program.\n"
+                  f"Run on a free port instead, e.g.:  uv run revenue-agent serve --port {args.port + 80}")
+            return 1
+    print(f"Tahseel app:        http://{args.host}:{args.port}")
+    print(f"Reviewer dashboard: http://{args.host}:{args.port}/judges")
     uvicorn.run("revenue_agent.web.app:app", host=args.host, port=args.port, log_level="warning")
     return 0
 
