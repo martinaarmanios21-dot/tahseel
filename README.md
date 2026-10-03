@@ -46,15 +46,18 @@ Requirements: Python 3.11+ and [uv](https://docs.astral.sh/uv/getting-started/in
 (`curl -LsSf https://astral.sh/uv/install.sh | sh`).
 
 ```bash
-git clone <this-repo> revenue-agent && cd revenue-agent
+git clone https://github.com/martinaarmanios21-dot/tahseel.git && cd tahseel
 uv sync
 
 # 1) Full learning loop in the terminal (no API key needed)
 uv run revenue-agent --engine offline demo
 
-# 2) The Tahseel app (Arabic UI) + technical dashboard
-uv run revenue-agent serve          # app: http://127.0.0.1:8000   ·   reviewers: http://127.0.0.1:8000/judges
-                                    # port busy? uv run revenue-agent serve --port 8080
+# 2) Fill the app with realistic demo data (offline, free, ~5 s)
+uv run revenue-agent seed-demo
+
+# 3) The Tahseel app (Arabic UI) + technical dashboard
+uv run revenue-agent --engine offline serve   # app: http://127.0.0.1:8000   ·   reviewers: http://127.0.0.1:8000/judges
+# port 8000 busy? add --port 8080 (and open http://127.0.0.1:8080)
 ```
 
 > **Tip for reviewers:** start with the offline engine. It is instant, deterministic, and doesn't use your free

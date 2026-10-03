@@ -187,7 +187,39 @@ def cmd_reset(args) -> int:
     return 0
 
 
+def cmd_seed_demo(args) -> int:
+    """Fill the app with a realistic state for demos/videos. Always uses the free, instant offline brain."""
+    conn = db.connect()
+    engine = Engine(conn, get_settings(), "offline")
+    if conn.execute("SELECT COUNT(*) FROM runs WHERE kind='train'").fetchone()[0] == 0:
+        print("1/3  the assistant practises on 2 training portfolios…")
+        for seed in (1, 2):
+            engine.run_episode(kind="train", seed=seed)
+    else:
+        print("1/3  practice runs already exist, skipping")
+    waiting = conn.execute("SELECT version FROM skill_versions WHERE status='passed_gate'").fetchone()
+    if waiting:
+        print(f"2/3  improvement v{waiting[0]} is already waiting for approval, skipping")
+    elif skills.active(conn)["version"] > 1:
+        print(f"2/3  an improvement (v{skills.active(conn)['version']}) is already active, skipping")
+    else:
+        print("2/3  the assistant studies its results and tests an improvement…")
+        proposal = learning.reflect(conn, engine)
+        if "version" in proposal:
+            gate = learning.gate(conn, engine, proposal["version"])
+            print(f"     improvement v{proposal['version']}: {'PASSED, waiting for owner approval' if gate['passed'] else 'rejected'}")
+    print("3/3  starting a new work day (first round done, emails waiting for approval)…")
+    run_id = engine.create_run(kind="live", seed=int(time.time()) % 100_000, size=args.size, explore=0.0,
+                               human_approvals=True)
+    engine.step_live(run_id)
+    pending = conn.execute("SELECT COUNT(*) FROM actions WHERE run_id=? AND status='pending_approval'", (run_id,)).fetchone()[0]
+    print(f"\nDone: {args.size} customers in today's work day, {pending} emails waiting for approval.")
+    print("Refresh the app in your browser.")
+    return 0
+
+
 def cmd_serve(args) -> int:
+    import os
     import socket
 
     import uvicorn
@@ -196,6 +228,9 @@ def cmd_serve(args) -> int:
             print(f"Port {args.port} is already used by another program.\n"
                   f"Run on a free port instead, e.g.:  uv run revenue-agent serve --port {args.port + 80}")
             return 1
+    if args.engine:
+        os.environ["ENGINE"] = args.engine  # the web app reads settings from the environment
+    print(f"Brain: {args.engine or get_settings().engine}  (use --engine offline for instant, free demos)")
     print(f"Tahseel app:        http://{args.host}:{args.port}")
     print(f"Reviewer dashboard: http://{args.host}:{args.port}/judges")
     uvicorn.run("revenue_agent.web.app:app", host=args.host, port=args.port, log_level="warning")
@@ -309,6 +344,10 @@ def main(argv: list[str] | None = None) -> int:
     s.add_argument("--host", default="127.0.0.1")
     s.add_argument("--port", type=int, default=8000)
     s.set_defaults(func=cmd_serve)
+
+    sd = sub.add_parser("seed-demo", help="fill the app with realistic demo data (offline, free, ~5 seconds)")
+    sd.add_argument("--size", type=int, default=24)
+    sd.set_defaults(func=cmd_seed_demo)
 
     sub.add_parser("hermes-setup", help="install the skill into Hermes and register the MCP server").set_defaults(
         func=cmd_hermes_setup)
