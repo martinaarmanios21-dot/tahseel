@@ -1,0 +1,60 @@
+{
+  "workspace": {
+    "run_id": "live-36316-460014",
+    "round": 1,
+    "status": "running"
+  },
+  "assistant": {
+    "paused": false,
+    "skill_version": 1,
+    "engine": "offline",
+    "busy": false
+  },
+  "money": {
+    "collected_egp": 28220.0,
+    "outstanding_egp": 1505869.3,
+    "with_team_egp": 22005.0,
+    "total_egp": 1556094.3
+  },
+  "customers_by_status": {
+    "in_progress": 24,
+    "paid": 2,
+    "suspicious": 1,
+    "needs_you": 3
+  },
+  "needs_your_decision": 3,
+  "businesses": [
+    {
+      "id": "nile-supplies",
+      "name_ar": "النيل للتوريدات",
+      "name_en": "Nile Supplies",
+      "customers": 10,
+      "collected_egp": 28220.0,
+      "outstanding_egp": 351609.9
+    },
+    {
+      "id": "delta-print",
+      "name_ar": "دلتا للطباعة",
+      "name_en": "Delta Print",
+      "customers": 10,
+      "collected_egp": 0.0,
+      "outstanding_egp": 690409.8
+    },
+    {
+      "id": "cairo-tech",
+      "name_ar": "القاهرة للحلول التقنية",
+      "name_en": "Cairo Tech Solutions",
+      "customers": 10,
+      "collected_egp": 0.0,
+      "outstanding_egp": 485854.6
+    }
+  ],
+  "learning": {
+    "first_version": 1,
+    "first_collection_rate": 0.2385,
+    "current_collection_rate": 0.2385,
+    "first_complaints": 12,
+    "current_complaints": 12,
+    "update_waiting_for_approval": 2
+  }
+}

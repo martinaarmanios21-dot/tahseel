@@ -1,0 +1,30 @@
+{
+  "invoice_id": "INV-1005",
+  "customer": "Coral Logistics",
+  "contact_name": "Karim",
+  "language": "en",
+  "business": "delta-print",
+  "tier": "standard",
+  "amount_egp": 69640.0,
+  "days_overdue": 66,
+  "due_date": "2026-07-29",
+  "state": "CONTACTED",
+  "status": "in_progress",
+  "times_contacted": 1,
+  "last_reply": "We dispute this charge: phase 2 of the work was never delivered.",
+  "reply_type": "dispute",
+  "resolution": null,
+  "timeline": [
+    {
+      "at": 1791036316.901313,
+      "round": 1,
+      "action": "send_reminder",
+      "status": "sent",
+      "code": "ok",
+      "tone": "firm",
+      "message": "Hello Karim, Invoice INV-1005 for EGP 69,640.00 is 66 days overdue and requires payment now. The original due date was 2026-07-29. Please arrange payment within 7 days.",
+      "installments": null,
+      "decided_by": "offline"
+    }
+  ]
+}

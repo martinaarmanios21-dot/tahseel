@@ -1,0 +1,213 @@
+{
+  "active": {
+    "version": 1,
+    "status": "active",
+    "author": "seed",
+    "rules": [
+      {
+        "when": {},
+        "do": {
+          "action": "send_reminder",
+          "tone": "firm",
+          "include_payment_link": false,
+          "mention_due_date": true
+        }
+      }
+    ],
+    "test_results": null
+  },
+  "waiting_for_approval": {
+    "version": 2,
+    "status": "passed_gate",
+    "author": "offline",
+    "rules": [
+      {
+        "when": {
+          "signal": "paid_claim"
+        },
+        "do": {
+          "action": "verify_payment"
+        }
+      },
+      {
+        "when": {
+          "signal": "dispute"
+        },
+        "do": {
+          "action": "escalate_to_human"
+        }
+      },
+      {
+        "when": {
+          "signal": "angry"
+        },
+        "do": {
+          "action": "escalate_to_human"
+        }
+      },
+      {
+        "when": {
+          "signal": "cash_flow"
+        },
+        "do": {
+          "action": "offer_payment_plan",
+          "tone": "firm",
+          "include_payment_link": false,
+          "mention_due_date": false,
+          "installments": 3
+        }
+      },
+      {
+        "when": {
+          "signal": "reply"
+        },
+        "do": {
+          "action": "offer_payment_plan",
+          "tone": "neutral",
+          "include_payment_link": false,
+          "mention_due_date": true,
+          "installments": 3
+        }
+      },
+      {
+        "when": {
+          "signal": "none",
+          "tier": "standard",
+          "history": "reliable",
+          "touch": "followup"
+        },
+        "do": {
+          "action": "offer_payment_plan",
+          "tone": "friendly",
+          "include_payment_link": true,
+          "mention_due_date": false,
+          "installments": 3
+        }
+      },
+      {
+        "when": {
+          "signal": "none",
+          "tier": "standard",
+          "history": "occasional",
+          "touch": "first"
+        },
+        "do": {
+          "action": "escalate_to_human"
+        }
+      },
+      {
+        "when": {
+          "signal": "none",
+          "tier": "standard",
+          "history": "occasional",
+          "touch": "followup"
+        },
+        "do": {
+          "action": "send_reminder",
+          "tone": "firm",
+          "include_payment_link": false,
+          "mention_due_date": true
+        }
+      },
+      {
+        "when": {
+          "signal": "none",
+          "tier": "standard",
+          "history": "chronic",
+          "touch": "first"
+        },
+        "do": {
+          "action": "offer_payment_plan",
+          "tone": "friendly",
+          "include_payment_link": false,
+          "mention_due_date": true,
+          "installments": 3
+        }
+      },
+      {
+        "when": {
+          "signal": "none",
+          "tier": "standard",
+          "touch": "first"
+        },
+        "do": {
+          "action": "offer_payment_plan",
+          "tone": "firm",
+          "include_payment_link": true,
+          "mention_due_date": true,
+          "installments": 3
+        }
+      },
+      {
+        "when": {
+          "signal": "none",
+          "tier": "standard",
+          "touch": "followup"
+        },
+        "do": {
+          "action": "offer_payment_plan",
+          "tone": "firm",
+          "include_payment_link": false,
+          "mention_due_date": false,
+          "installments": 3
+        }
+      },
+      {
+        "when": {
+          "signal": "none",
+          "tier": "key",
+          "touch": "first"
+        },
+        "do": {
+          "action": "offer_payment_plan",
+          "tone": "neutral",
+          "include_payment_link": true,
+          "mention_due_date": true,
+          "installments": 3
+        }
+      },
+      {
+        "when": {},
+        "do": {
+          "action": "offer_payment_plan",
+          "tone": "friendly",
+          "include_payment_link": true,
+          "mention_due_date": true,
+          "installments": 3
+        }
+      }
+    ],
+    "test_results": {
+      "passed": true,
+      "reasons": [],
+      "before": {
+        "collection_rate": 0.2385,
+        "correct_resolution_rate": 0.525,
+        "complaints": 12.0,
+        "guardrail_blocks": 6.0,
+        "safety_tests_passed": 4,
+        "safety_tests_total": 9
+      },
+      "after": {
+        "collection_rate": 0.8402,
+        "correct_resolution_rate": 0.8,
+        "complaints": 0.0,
+        "guardrail_blocks": 0.0,
+        "safety_tests_passed": 9,
+        "safety_tests_total": 9
+      }
+    }
+  },
+  "history": [
+    {
+      "version": 1,
+      "status": "active",
+      "created_at": 1791036315.343176
+    },
+    {
+      "version": 2,
+      "status": "passed_gate",
+      "created_at": 1791036315.641563
+    }
+  ]
+}
