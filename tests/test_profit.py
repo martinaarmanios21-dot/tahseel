@@ -460,3 +460,15 @@ def test_currency_change_rescales_decimals_and_locks_once_decisions_exist(conn):
     _plan(conn, iid)
     with pytest.raises(store.CurrencyLocked):
         store.set_currency(conn, iid, tenant=T, actor="o", currency="SAR")
+
+
+def test_hermes_sees_verified_outcomes_from_memory(conn, inv, monkeypatch):
+    """Memory makes advice build on what worked before: a verified outcome reaches Hermes via profit_business_context."""
+    from revenue_agent import mcp_server
+    memory.remember(conn, T, "outcome", "packaging:request_quotes:1",
+                    {"driver": "packaging", "option": "request_quotes", "status": "verified_improvement",
+                     "change_pct": -25.0, "orders_after": 120}, "verified_outcome")
+    memory.remember(conn, "someone-else", "outcome", "x", {"driver": "shipping"}, "verified_outcome")
+    ctx = mcp_server.profit_business_context()
+    assert ctx["verified_outcomes"] == [{"driver": "packaging", "option": "request_quotes",
+                                         "status": "verified_improvement", "change_pct": -25.0, "orders_after": 120}]

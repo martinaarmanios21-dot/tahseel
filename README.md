@@ -1,17 +1,146 @@
-# Ribhiya (ربحية): AI profitability & cost-leakage specialist for product-based SMEs
+<div align="center">
 
-Upload your real sales, product-cost and supplier/expense files. Ribhiya asks you a few simple questions, works out
-what each order really leaves you (deterministically, per currency, traceable to the file and row), finds which
-cost changed it, explains it in plain Egyptian Arabic or English with charts, suggests quality-aware options, and then
-measures whether your change actually helped, without ever calling a projection a saving. It also shows profit per
-order, product and channel (actual vs allocated costs, reconciled to the monthly totals), lets you test "what if I
-change price, packaging, shipping, discounts or a supplier?" on a real month, and compares supplier quotes on an
-equal basis. When a cost problem is found, it asks for the evidence that matters next and can prepare a supplier
-quote request (owner-approved, sent only via your SMTP server, otherwise a copyable draft) whose replies flow back
-into the comparison, the simulator and experiment tracking.
+<img src="frontend/public/logo.png" width="150" alt="ربحية">
 
-Details: [docs/PROFIT_INVESTIGATION.md](docs/PROFIT_INVESTIGATION.md) (workflow, Hermes Agent integration, learning,
-judge steps) · [docs/SECURITY.md](docs/SECURITY.md)
+# ربحية · Ribhiya
+
+**مستشارة ربحية بالذكاء الاصطناعي، بتتكلم مصري، لأصحاب المشاريع الصغيرة**
+**An Arabic-first AI profitability advisor for small product businesses**
+
+*Built with [Hermes Agent](https://github.com/NousResearch/hermes-agent) · every number calculated, never invented · 145 tests*
+
+</div>
+
+---
+
+## The problem / المشكلة
+
+> **«ببيع أكتر من الأول… بس الفلوس اللي بتفضل معايا أقل. ومش عارف بتروح فين.»**
+> *"I'm selling more than before, but I keep less money, and I don't know where it goes."*
+
+That sentence describes a huge number of small online shops, Instagram sellers and young brands in Egypt. Their
+profit doesn't disappear in one big mistake. It **leaks** a few pounds per order: packaging got pricier, the courier
+raised rates, a promotion ran too long, returns went up. The evidence is scattered across a sales export, supplier
+invoices, a courier statement and a spreadsheet, and the owner usually:
+
+- has **no accountant** and no finance background (most are first-time founders),
+- finds existing tools built for accountants, in English, full of jargon, assuming you already know what to look for,
+- gets dashboards full of charts that **show numbers but don't say what they mean or what to do next**.
+
+**Ribhiya reads the files the owner already has, finds exactly where the profit is leaking, and walks them through
+fixing it, step by step, in the way an Egyptian shop owner actually talks.**
+
+## Why Egyptian Arabic? / ليه بالمصري؟
+
+Because understanding is the product. A beginner won't act on "your contribution margin declined due to variable
+cost inflation". They will act on:
+
+> **«كل طلب بقى بيسيبلك 23.74 ج.م أقل بسبب الخصومات. يعني حوالي 3,323 ج.م أقل في الشهر.»**
+> *"Each order now leaves you EGP 23.74 less because of discounts. That's about EGP 3,323 less per month."*
+
+Everything (questions, findings, charts, the assistant, supplier emails) is written in natural Egyptian Arabic
+(العامية المصرية), with English one click away (**EN / ع**) and full right-to-left layout. Simple words first;
+the technical term only in brackets, explained.
+
+## The "aha" moment, in 4 screenshots
+
+**1. It asks instead of guessing.** Upload the first files and Ribhiya notices September has no shipping invoice.
+Most tools would happily report "shipping costs dropped to zero, great job!". Ribhiya stops and asks:
+
+<img src="docs/screenshots/1-asks-instead-of-guessing.png" width="720" alt="Ribhiya asks for the missing invoice">
+
+**2. It finds the leak, per order, in one sentence.** One finding, one chart, one button to fix it:
+
+<img src="docs/screenshots/2-finds-the-leak.png" width="720" alt="Each order now leaves you EGP 23.74 less because of discounts">
+
+**3. It explains your numbers like a patient advisor.** Ask *«ليه ربحي قلّ؟»* (why is my profit down?) and it answers
+from **your** investigation, with an analogy a beginner gets, and says where the answer came from:
+
+<img src="docs/screenshots/3-explains-in-egyptian-arabic.png" width="720" alt="The assistant explains in Egyptian Arabic">
+
+**4. It teaches you the business, not just the answer.** Every concept comes with a simple example, why it matters,
+where to see it in your own data, and where to learn more:
+
+<img src="docs/screenshots/4-teaches-business-concepts.png" width="720" alt="Learn tab with business concepts">
+
+## It doesn't just do the job for you. It teaches you.
+
+Most tools hand a beginner a report. Ribhiya's goal is that the owner **understands their own business** after
+using it:
+
+- **One step at a time.** A five-step journey (عرّفني → الملفات → التسريب → الحل → النتيجة) and a single
+  **«اعمل ده دلوقتي» (Do this now)** card. Every request says *why* it matters and what to do if you don't have it.
+- **A built-in business course.** The **اتعلّم (Learn)** tab explains 13 core concepts in plain Egyptian Arabic:
+  sales vs profit, what each order leaves (contribution margin), gross margin, cost of goods, fixed vs variable
+  costs, break-even, pricing, discounts, returns, cash flow vs profit, stock and minimum order quantity, average
+  order value and customer cost, and test-and-measure. Each has a worked example and **YouTube and Coursera links**
+  to learn more (search links, so they never point to a dead or made-up video).
+- **A guided tour** of every feature with **وريني (Show me)**, which jumps to the exact card or tab.
+- **It explains the "why".** Every finding has **اشرحلي (Explain)**: the reason, the evidence from your files, the
+  caveats, and quality-aware options, so the owner learns to read their own numbers.
+- **It teaches good habits.** Never compare a full month with an empty one; get 2–3 written quotes for the *same*
+  specification; count the extra units a minimum order forces you to buy; test a change before making it; then
+  measure it, and remember that "it improved after I changed it" isn't proof it was the cause.
+
+## It remembers your business and gets better with use
+
+Ribhiya has **governed memory** (`revenue_agent/profit/memory.py`):
+
+- **It learns your files.** Confirm once what your columns mean (e.g. an export with *Ref, When, Item, Count,
+  Each*) and every future file with that layout is read automatically, with the note "used the column mapping you
+  confirmed before".
+- **It learns what worked for you.** When a change is verified with new data (e.g. packaging per order went from
+  18.00 to 13.50 after switching supplier), that outcome is remembered and given to the Hermes advisor as context
+  for future advice.
+- **It never asks twice.** Say «معنديش الملف ده» (I don't have this file) and it continues without it, for good.
+- **It learns only from you, safely.** Memory is written only from things the owner confirmed or results verified
+  with real data, never from AI output or text inside uploaded files. Entries that keep getting corrected retire
+  themselves, and the owner can see everything Ribhiya remembers and **forget** any of it.
+
+## Built with Hermes Agent
+
+Questions about your numbers are answered by **[Hermes Agent](https://github.com/NousResearch/hermes-agent)**
+(Nous Research), running in a locked-down profile created by `revenue-agent hermes-setup-profit`:
+
+- a **Ribhiya skill** (`skills/tahseela-profit/SKILL.md`) that teaches Hermes how to explain profit to a beginner,
+  in Egyptian Arabic, from evidence only;
+- **read-only MCP tools** (`profit_*` in `revenue_agent/mcp_server.py`) pinned to one business, so Hermes reads the
+  computed investigation, the owner-confirmed memory and verified outcomes, and can't change anything;
+- every built-in Hermes toolset (terminal, files, web, code) disabled except skills;
+- its answer checked before the owner sees it: secrets removed, and any figure not in the calculations flagged.
+
+No Hermes installed? Ribhiya falls back to Google Gemini (free tier), then to rule-based answers from the same
+calculations, and always says which one answered.
+
+## Every number is calculated, never invented
+
+The AI only puts numbers into words. Every figure comes from deterministic Python code, traceable to the file and
+row it came from:
+
+- **145 automated tests**, including hand-calculated expected values, "the causes add up exactly to the change",
+  "a projection never becomes a result", and AI-output checks with a fake provider.
+- **A fictional test pack** (`test-data/tahseela-test-pack/`) whose expected results are written down in advance in
+  [docs/TEST_GUIDE.md](docs/TEST_GUIDE.md): −23.74 discounts per order, 14 of 260 orders losing money, a what-if
+  of +630.00. Run it and compare.
+- Missing data is shown as missing, never as zero. A projection is always labelled a projection. Nothing is sent to
+  a supplier without the owner approving the exact text.
+
+## Try it in 5 minutes
+
+```bash
+git clone https://github.com/martinaarmanios21-dot/ribhiya.git && cd ribhiya
+uv sync
+uv run revenue-agent serve          # → http://127.0.0.1:8000
+```
+
+No API key needed. Start an investigation, upload the numbered files from `test-data/tahseela-test-pack/` in order,
+and follow [docs/TEST_GUIDE.md](docs/TEST_GUIDE.md). Run the tests with `uv run pytest -q`.
+
+> Honest scope: everything shown here runs on fictional test data. No real business has used Ribhiya yet, so no
+> real-world savings are claimed. Email to suppliers is tested with a fake mail server only.
+
+More: [docs/PROFIT_INVESTIGATION.md](docs/PROFIT_INVESTIGATION.md) (workflow, Hermes integration, memory) ·
+[docs/SECURITY.md](docs/SECURITY.md) · [docs/HACKATHON_READINESS.md](docs/HACKATHON_READINESS.md)
 
 ---
 
@@ -52,7 +181,7 @@ Optional configuration (`.env`, see `.env.example`): an LLM key (`GEMINI_API_KEY
 SMTP for sending approved supplier requests (`EMAIL_SENDING_ENABLED=1`, `SMTP_*`), `ADMIN_TOKEN` for any shared
 deployment.
 
-Tests: `uv run pytest -q` (134 tests: profit investigation, in-app guide, evidence and supplier outreach, order profit, simulator, quotes, security, plus the simulation lab). Frontend: `cd frontend && npx vitest run`. MCP server with the read-only profit tools: `uv run python -m revenue_agent.mcp_server`.
+Tests: `uv run pytest -q` (145 tests: profit investigation, in-app guide, evidence and supplier outreach, order profit, simulator, quotes, security, plus the simulation lab). Frontend: `cd frontend && npx vitest run`. MCP server with the read-only profit tools: `uv run python -m revenue_agent.mcp_server`.
 
 > **Collections was removed (2026-10-10).** The former invoice-collections workflow (invoice import, overdue
 > analysis, follow-up emails, its chat agent, pages and API) is gone. The shared pieces it had (value parsing,

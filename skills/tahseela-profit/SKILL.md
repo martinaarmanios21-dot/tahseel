@@ -16,7 +16,7 @@ metadata:
 - `profit_get_investigation(investigation_id, lang)`: computed metrics, comparison, findings with five-part
   explanations, untested possibilities, open questions, interventions.
 - `profit_list_investigations()`, `profit_definitions()`, `profit_business_context()` (owner-confirmed facts and
-  preferences only).
+  preferences, plus verified outcomes of earlier changes: what measurably helped or didn't for this business).
 
 ## Hard rules
 1. Every number must come from a tool result. Never compute new totals, never invent figures, suppliers or prices.
@@ -36,3 +36,5 @@ metadata:
 4. Options with trade-offs.
 5. One practical next step (often: answer the open question or upload the missing file).
 Teach one concept when it becomes relevant (e.g. "contribution = what each order leaves after its costs").
+If `profit_business_context()` has verified outcomes for the same cost, mention what happened last time (e.g. "last
+time switching packaging supplier lowered packaging per order by 25%"), as an observation, not a promise.

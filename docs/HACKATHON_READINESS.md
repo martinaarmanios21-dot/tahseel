@@ -55,7 +55,7 @@ and a confirmed layout is remembered.
 
 ## Test and build results (2026-10-10)
 
-- `uv run pytest -q` → **134 passed**.
+- `uv run pytest -q` → **145 passed**.
 - `npx tsc --noEmit` (frontend) → no errors. `npx vitest run` → 2 passed. `bash scripts/build_frontend.sh` → success.
 - Headless-Chrome checks: home, investigation, upload through the page's file input (CSV, PDF, Excel), the guide's
   "Show me" navigation, and a 404 page for old collections URLs.

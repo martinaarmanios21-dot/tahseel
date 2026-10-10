@@ -84,11 +84,14 @@ def profit_definitions() -> dict:
 
 @mcp.tool()
 def profit_business_context() -> dict:
-    """Owner-confirmed facts and preferences for THIS business only (no other business's data, no raw records)."""
+    """What Ribhiya remembers about THIS business only (no other business's data, no raw records): owner-confirmed
+    facts and preferences, and verified outcomes of changes the owner made (what worked / didn't, measured on
+    new data). Use outcomes as context for advice; they are observations, not proof of cause."""
     from .profit import memory as _mem
     conn = db.connect()
     return {"facts": [{"key": e["key"], "value": e["value"]} for e in _mem.entries(conn, MCP_TENANT, "fact")],
-            "preferences": [{"key": e["key"], "value": e["value"]} for e in _mem.entries(conn, MCP_TENANT, "preference")]}
+            "preferences": [{"key": e["key"], "value": e["value"]} for e in _mem.entries(conn, MCP_TENANT, "preference")],
+            "verified_outcomes": [e["value"] for e in _mem.entries(conn, MCP_TENANT, "outcome")]}
 
 
 # ------------------------------------------------------------------ simulation-lab tools (Hermes)
