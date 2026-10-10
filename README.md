@@ -10,6 +10,7 @@
 *Finds the leak · **test any decision before you spend a pound** · teaches you the business*
 
 *Built with [Hermes Agent](https://github.com/NousResearch/hermes-agent) · every number calculated, never invented · 145 tests*
+watch the demo video here: https://app.arcade.software/share/8zBDChTmR5Vrhnzs5UR7
 
 </div>
 
