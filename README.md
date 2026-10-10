@@ -7,6 +7,8 @@
 **مستشارة ربحية بالذكاء الاصطناعي، بتتكلم مصري، لأصحاب المشاريع الصغيرة**
 **An Arabic-first AI profitability advisor for small product businesses**
 
+*Finds the leak · **test any decision before you spend a pound** · teaches you the business*
+
 *Built with [Hermes Agent](https://github.com/NousResearch/hermes-agent) · every number calculated, never invented · 145 tests*
 
 </div>
@@ -62,6 +64,50 @@ from **your** investigation, with an analogy a beginner gets, and says where the
 where to see it in your own data, and where to learn more:
 
 <img src="docs/screenshots/4-teaches-business-concepts.png" width="720" alt="Learn tab with business concepts">
+
+## The biggest feature: «لو غيّرت…؟» (What if…?), test a decision before you spend
+
+Small business owners make expensive decisions on gut feeling: *"Should I raise prices 5%?"*, *"Is free shipping
+above 500 worth it?"*, *"Should I switch to the cheaper box supplier?"*. A wrong guess costs real money.
+
+**Ribhiya lets the owner try the decision on their own real month first.** Pick a month, change one or more
+levers, press **احسب (Calculate)**, and see what would have happened, order by order:
+
+<img src="docs/screenshots/5-what-if-simulator.png" width="720" alt="What-if simulator: packaging 13.50 per order">
+
+In this example, cutting packaging from 18.00 to **13.50 per order** in September would mean:
+
+| | Actual Sep | Projection | Change |
+|---|---|---|---|
+| What each order leaves | 217.94 | 222.44 | **+4.50 per order** |
+| What all orders leave | 30,512 | 31,142 | **+630 a month** |
+| Orders that lose money | 14 | 9 | **−5** |
+| After rent, salaries and ads | **−488 (a loss)** | **+142 (a profit)** | the month turns profitable |
+| Orders needed to break even | 142.2 | 139.4 | −2.8 |
+
+**What you can test (8 levers, combinable):**
+- **Price** change, for all products or one product
+- **Packaging** cost per order, **shipping** cost per order
+- **Discount** level, **return rate**
+- **A new supplier's unit cost** for a product (straight from a real quote: **Test in simulator** on any compared
+  quote)
+- **Free shipping above** a basket value, with a fee below it (uses what customers actually paid for delivery)
+- **Your own guess** for how orders would change (e.g. "price +5%, orders −10%")
+
+**Why owners can trust it:**
+- It recalculates **every order** of the real month with the same engine as the analysis, not a rough average.
+  Your files are never modified.
+- Every result is labelled **a projection, not a saving**, and lists its assumptions (what stays the same).
+  Raising prices, for example, states that it assumes customers keep buying the same amounts, unless you enter
+  your own guess.
+- If the data can't support a lever (e.g. no per-order delivery fees for free shipping), the lever is switched off
+  with the reason, instead of guessing.
+
+**And then it closes the loop:** save the scenario as an **experiment** (**احفظه وجرّبه وقيس النتيجة**), make the
+change in real life, upload next month's files, and Ribhiya checks what actually happened. In the test pack,
+packaging went from 18.00 to 13.50 per order after switching supplier (−25%), reported as "observed after the
+change", never as proof it was the cause. Verified results go into Ribhiya's memory, so future advice builds on
+what really worked for this business.
 
 ## It doesn't just do the job for you. It teaches you.
 
