@@ -115,13 +115,23 @@ def remove_file(iid: str, file_id: int, request: Request):
     return {"removed": file_id}
 
 
+def _answer_value(v) -> str | None:
+    """Answers are stored as text; a multi-choice answer may arrive as a list (joined with commas, like the UI)."""
+    if v is None:
+        return None
+    if isinstance(v, list):
+        return ",".join(str(x) for x in v)
+    return str(v)
+
+
 @router.post("/investigations/{iid}/answers")
 def answer(iid: str, request: Request, body: dict = Body(...)):
     conn = db.connect()
     _inv(conn, request, iid)
     try:
         diagnosis.answer(conn, iid, str(body.get("qid", ""))[:80], tenant=_tenant(request),
-                         status=str(body.get("status", "answered")), value=body.get("value"), actor=_actor(request))
+                         status=str(body.get("status", "answered")), value=_answer_value(body.get("value")),
+                         actor=_actor(request))
     except ValueError as exc:
         raise HTTPException(422, str(exc)) from exc
     if body.get("remember") and str(body.get("qid", "")).startswith("p_") and body.get("value"):
