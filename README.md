@@ -35,7 +35,7 @@ I do about it?" → its computed state). On Home it helps you get started.
 Requirements: Python 3.11+ and [uv](https://docs.astral.sh/uv/getting-started/installation/).
 
 ```bash
-git clone https://github.com/martinaarmanios21-dot/tahseel.git && cd tahseel
+git clone https://github.com/martinaarmanios21-dot/ribhiya.git && cd ribhiya
 uv sync
 uv run revenue-agent serve          # → http://127.0.0.1:8000   (port busy? add --port 8080)
 ```
