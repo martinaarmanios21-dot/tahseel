@@ -41,7 +41,12 @@ def _style_stats(rows: list[dict]) -> dict:
     return styles
 
 
-def _summarize(rows: list[dict]) -> dict:
+def _summarize(rows: list[dict], when: dict | None = None) -> dict:
+    """Best action for a situation. Rules that can fire on a first contact may not pick escalation or a firm
+    tone, however well they scored: in the simulator those arms earn reward without collecting cash."""
+    if when is not None and skills.covers_first_contact(when):
+        rows = [r for r in rows if r["action"] != "escalate_to_human"
+                and not (r["action"] in CONTACT and r["tone"] == "firm")]
     grouped: dict[str, list[dict]] = defaultdict(list)
     for r in rows:
         grouped[r["action"]].append(r)
@@ -116,14 +121,14 @@ def build_report(conn: sqlite3.Connection, settings: Settings | None = None, max
     for when, subset, min_n in candidates:
         if len(subset) < min_n:
             continue
-        summary = _summarize(subset)
+        summary = _summarize(subset, when)
         if summary["best_action"] is None:
             continue
         general_do[tuple(sorted(when.items()))] = _do_from(summary, settings)
     for when, subset, min_n in candidates:
         if len(subset) < min_n:
             continue
-        summary = _summarize(subset)
+        summary = _summarize(subset, when)
         if summary["best_action"] is None:
             continue
         do = general_do[tuple(sorted(when.items()))]

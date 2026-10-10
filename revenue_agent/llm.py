@@ -34,6 +34,10 @@ class LLMError(RuntimeError):
     pass
 
 
+class DeadlineExceeded(LLMError):
+    """The per-request wall-clock budget ran out (no further calls or sleeps are attempted)."""
+
+
 @dataclass
 class LLMResult:
     text: str
@@ -42,6 +46,8 @@ class LLMResult:
     tokens_in: int
     tokens_out: int
     latency_s: float
+    message: dict | None = None      # raw assistant message (needed to echo tool calls back)
+    tool_calls: list | None = None
 
 
 # ------------------------------------------------------------------ budgets
@@ -117,9 +123,13 @@ class LLMClient:
         self.run_id = run_id
         self.calls = 0
         self.tokens = 0
+        self.tokens_in = 0
+        self.tokens_out = 0
 
     def chat(self, messages: list[dict], *, purpose: str, trace_id: str | None = None,
-             max_tokens: int = 12000, temperature: float = 0.2) -> LLMResult:
+             max_tokens: int = 12000, temperature: float = 0.2, tools: list[dict] | None = None,
+             deadline: float | None = None) -> LLMResult:
+        """`deadline` is a time.monotonic() value: no attempt starts, and no backoff sleeps, past it."""
         providers = self.settings.available_providers()
         if not providers:
             raise LLMError("no LLM provider key configured (set GEMINI_API_KEY or OPENROUTER_API_KEY in .env)")
@@ -130,21 +140,28 @@ class LLMClient:
             for attempt in range(1, self.settings.llm_max_retries + 1):
                 if db.kill_switch_on(self.conn):
                     raise KillSwitchOn("kill switch is on")
+                remaining = None if deadline is None else deadline - time.monotonic()
+                if remaining is not None and remaining < 1.0:
+                    raise DeadlineExceeded("request time budget exhausted")
                 check_token_budget(self.conn, self.run_id)
                 reserve_call(self.conn, self.run_id, self.settings)
                 _wait_for_slot(provider, spec["rpm"])
                 started = time.monotonic()
+                body_json = {"model": model, "messages": messages, "temperature": temperature, "max_tokens": max_tokens}
+                if tools:
+                    body_json["tools"] = tools
                 try:
                     resp = httpx.post(
                         f"{spec['base_url']}/chat/completions",
                         headers={"Authorization": f"Bearer {self.settings.provider_key(provider)}"},
-                        json={"model": model, "messages": messages, "temperature": temperature, "max_tokens": max_tokens},
-                        timeout=self.settings.llm_timeout_s,
+                        json=body_json,
+                        timeout=self.settings.llm_timeout_s if remaining is None else min(self.settings.llm_timeout_s,
+                                                                                         remaining),
                     )
                 except httpx.HTTPError as exc:
                     last_error = f"{type(exc).__name__}: {exc}"
                     self._log_failure(provider, model, attempt, purpose, trace_id, last_error)
-                    self._backoff(attempt)
+                    self._backoff(attempt, deadline=deadline)
                     continue
                 latency = time.monotonic() - started
                 self.calls += 1
@@ -152,7 +169,8 @@ class LLMClient:
                     last_error = f"HTTP {resp.status_code}"
                     self._log_failure(provider, model, attempt, purpose, trace_id, last_error)
                     retry_after = resp.headers.get("retry-after")
-                    self._backoff(attempt, float(retry_after) if retry_after and retry_after.isdigit() else None)
+                    self._backoff(attempt, float(retry_after) if retry_after and retry_after.isdigit() else None,
+                                  deadline=deadline)
                     continue
                 if resp.status_code >= 400:
                     last_error = f"HTTP {resp.status_code}: {resp.text[:200]}"
@@ -160,22 +178,27 @@ class LLMClient:
                     break  # auth / bad request: retrying the same provider will not help
                 try:
                     body = resp.json()
-                    text = body["choices"][0]["message"]["content"] or ""
+                    message = body["choices"][0]["message"]
+                    text = message.get("content") or ""
                 except (ValueError, KeyError, IndexError, TypeError) as exc:
                     last_error = f"malformed response: {exc}"
                     self._log_failure(provider, model, attempt, purpose, trace_id, last_error)
-                    self._backoff(attempt)
+                    self._backoff(attempt, deadline=deadline)
                     continue
                 usage = body.get("usage") or {}
                 t_in, t_out = int(usage.get("prompt_tokens") or 0), int(usage.get("completion_tokens") or 0)
                 # total_tokens includes hidden "thinking" tokens on reasoning models; budget on the larger number.
                 t_total = max(int(usage.get("total_tokens") or 0), t_in + t_out)
                 self.tokens += t_total
+                self.tokens_in += t_in
+                self.tokens_out += max(t_out, t_total - t_in)
                 record_tokens(self.conn, self.run_id, t_total, self.settings)
+                cost = estimate_cost(self.settings, t_in, max(t_out, t_total - t_in))
                 emit(self.conn, "llm_call", run_id=self.run_id, trace_id=trace_id, provider=provider, model=model,
                      purpose=purpose, attempt=attempt, latency_s=round(latency, 2), tokens_in=t_in, tokens_out=t_out,
-                     tokens_total=t_total)
-                return LLMResult(text, provider, model, t_in, t_out, latency)
+                     tokens_total=t_total, est_cost_usd=cost)
+                return LLMResult(text, provider, model, t_in, t_out, latency, message=message,
+                                 tool_calls=message.get("tool_calls") or None)
             emit(self.conn, "provider_failed", run_id=self.run_id, trace_id=trace_id, level="warn",
                  provider=provider, model=model, error=last_error)
         raise LLMError(f"all providers failed; last error: {last_error}")
@@ -185,6 +208,16 @@ class LLMClient:
              model=model, attempt=attempt, purpose=purpose, error=error)
 
     @staticmethod
-    def _backoff(attempt: int, retry_after: float | None = None) -> None:
+    def _backoff(attempt: int, retry_after: float | None = None, deadline: float | None = None) -> None:
         delay = retry_after if retry_after is not None else min(30.0, 2 ** attempt) + random.uniform(0, 1)
-        time.sleep(min(delay, 60.0))
+        delay = min(delay, 60.0)
+        if deadline is not None:
+            delay = max(0.0, min(delay, deadline - time.monotonic() - 1.0))
+        time.sleep(delay)
+
+
+def estimate_cost(settings: Settings, tokens_in: int, tokens_out: int) -> float | None:
+    """USD estimate from configured prices. None when prices are unknown (we never invent provider pricing)."""
+    if settings.llm_price_in_per_1k <= 0 and settings.llm_price_out_per_1k <= 0:
+        return None
+    return round(tokens_in / 1000 * settings.llm_price_in_per_1k + tokens_out / 1000 * settings.llm_price_out_per_1k, 6)

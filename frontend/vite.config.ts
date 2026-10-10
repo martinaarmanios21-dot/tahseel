@@ -13,5 +13,9 @@ export default defineConfig({
     server: { entry: "server" },
     // Static SPA build so the Tahseel Python server can serve it (no Node/Cloudflare runtime needed).
     spa: { enabled: true, prerender: { outputPath: "/index.html" } },
+    // The earlier role-based screens ran on simulator data only. They stay in the repo (owner's work) but are no
+    // longer routed or bundled: the app now runs exclusively on the user's imported invoices.
+    router: {
+    },
   },
 });

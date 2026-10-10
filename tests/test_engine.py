@@ -62,17 +62,33 @@ def test_human_approval_flow(conn):
         assert conn.execute("SELECT status FROM actions WHERE id=?", (pending[1]["id"],)).fetchone()[0] == "rejected"
 
 
-def test_learning_improves_and_gate_promotes(conn):
+def test_learning_cannot_reward_hack_first_contact_or_count_plans_as_cash(conn):
+    """The learner may not open with escalation / a firm tone, and an instalment plan is not cash. A candidate that
+    trades cash for plans must be rejected by the gate, leaving the active skill unchanged."""
     e = Engine(conn)
     for seed in (1, 2):
         e.run_episode(kind="train", seed=seed)
     proposal = learning.reflect(conn, e)
+    rules = skills.parse_playbook(skills.get(conn, proposal["version"])["content"])
+    for r in rules:
+        if skills.covers_first_contact(r.get("when") or {}):
+            assert skills.first_contact_ok(r["do"]), r
     gate = learning.gate(conn, e, proposal["version"])
-    assert gate["passed"], gate["reasons"]
-    assert gate["candidate_eval"]["collection_rate"] > gate["baseline_eval"]["collection_rate"] + 0.3
-    skills.promote(conn, proposal["version"], by="test")
-    assert skills.active(conn)["version"] == proposal["version"]
-    assert skills.rollback(conn, by="test") == 1
+    cand, base = gate["candidate_eval"], gate["baseline_eval"]
+    if cand["collection_rate"] < base["collection_rate"] - 0.02:
+        assert not gate["passed"] and any("cash collected regressed" in x for x in gate["reasons"])
+        with pytest.raises(skills.SkillRejected):
+            skills.promote(conn, proposal["version"], by="test")
+        assert skills.active(conn)["version"] == 1
+    run = e.get_run(base["runs"][0])
+    assert "plan_agreed_rate" in run["metrics"]
+
+
+def test_skill_validator_rejects_first_contact_escalation(conn):
+    content = skills.active(conn)["content"].replace("tone: firm", "tone: friendly")
+    bad = content.replace("action: send_reminder, tone: friendly", "action: escalate_to_human")
+    assert any("first contact" in err for err in skills.validate_content(bad))
+    assert skills.validate_content(content) == []
 
 
 def test_hard_rules_are_immutable(conn):
@@ -82,6 +98,7 @@ def test_hard_rules_are_immutable(conn):
 
 
 def test_unpromotable_without_gate(conn):
-    v = skills.create_candidate(conn, skills.active(conn)["content"], parent=1, author="test", notes="same")
+    content = skills.active(conn)["content"].replace("tone: firm", "tone: friendly")
+    v = skills.create_candidate(conn, content, parent=1, author="test", notes="same")
     with pytest.raises(skills.SkillRejected):
         skills.promote(conn, v, by="test")

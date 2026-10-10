@@ -228,10 +228,15 @@ def cmd_serve(args) -> int:
             print(f"Port {args.port} is already used by another program.\n"
                   f"Run on a free port instead, e.g.:  uv run revenue-agent serve --port {args.port + 80}")
             return 1
+    from .web.auth import auth_configured
+    if args.host not in ("127.0.0.1", "localhost", "::1") and not auth_configured() and not args.insecure:
+        print(f"Refusing to listen on {args.host} without ADMIN_TOKEN (or TENANT_TOKENS): anyone on the network "
+              "could read and act on your invoices. Set ADMIN_TOKEN in .env, or pass --insecure if you really mean it.")
+        return 1
     if args.engine:
         os.environ["ENGINE"] = args.engine  # the web app reads settings from the environment
     print(f"Brain: {args.engine or get_settings().engine}  (use --engine offline for instant, free demos)")
-    print(f"Tahseel app:        http://{args.host}:{args.port}")
+    print(f"Ribhiya app:        http://{args.host}:{args.port}")
     print(f"Reviewer dashboard: http://{args.host}:{args.port}/judges")
     uvicorn.run("revenue_agent.web.app:app", host=args.host, port=args.port, log_level="warning")
     return 0
@@ -257,7 +262,7 @@ def cmd_hermes_setup(args) -> int:
     if not settings.hermes_profile_home.is_dir():
         print(f"creating isolated Hermes profile '{profile}' (your default profile is not touched)")
         run([hermes, "profile", "create", profile, "--no-skills", "--no-alias",
-             "--description", "Tahseel AR collections agent (free Gemini only)"])
+             "--description", "Ribhiya base profile: simulation lab + MCP server (free Gemini only)"])
     # Pin the main provider explicitly: with no fallback declared, Hermes never bills side tasks elsewhere.
     for key, value in (("model.default", model), ("model.provider", "gemini"), ("model.base_url", "")):
         run([hermes, "-p", profile, "config", "set", key, value])
@@ -276,6 +281,68 @@ def cmd_hermes_setup(args) -> int:
     print(f"Test:  hermes -p {profile} mcp test revenue_agent")
     print("Run:   uv run revenue-agent --engine hermes demo")
     return proc.returncode
+
+
+PROFIT_ALLOWED_TOOLSETS = {"skills"}
+PROFIT_MCP_DISABLED = ["get_open_invoices", "submit_decisions", "propose_skill", "get_learning_report",
+                       "get_active_skill", "get_status"]
+
+
+def cmd_hermes_setup_profit(args) -> int:
+    """Create the locked-down Hermes profile used by the profit advisor (your other profiles are not touched).
+
+    Cloned from the tahseel profile (free Gemini), then every built-in toolset except `skills` is disabled
+    (no terminal, files, code, web, browser, memory writes...), simulation/write MCP tools are disabled, and the
+    tahseela-profit skill is installed. The advisor refuses to use Hermes unless this setup has run.
+    """
+    from .profit.advisor import hermes_profile_home, profile_for
+    settings = get_settings()
+    tenant = (args.tenant or "default").strip().lower()
+    HERMES_PROFILE = profile_for(tenant)
+    hermes = shutil.which(settings.hermes_bin)
+    if not hermes:
+        print("Hermes Agent not found. Install: https://github.com/NousResearch/hermes-agent")
+        return 1
+    run = lambda cmd: subprocess.run(cmd, capture_output=True, text=True, timeout=180)  # noqa: E731
+    home = hermes_profile_home(tenant)
+    if not home.is_dir():
+        src = settings.hermes_profile or "tahseel"
+        if not settings.hermes_profile_home.is_dir():
+            print(f"Run `uv run revenue-agent hermes-setup` first (creates the '{src}' profile with the MCP server).")
+            return 1
+        p = run([hermes, "profile", "create", HERMES_PROFILE, "--clone-from", src, "--no-alias",
+                 "--description", "Ribhiya profit advisor (locked down: skills + read-only MCP only)"])
+        print("profile:", "created" if p.returncode == 0 else p.stderr[-400:])
+    listing = run([hermes, "-p", HERMES_PROFILE, "tools", "list"]).stdout
+    enabled = [ln.split()[2] for ln in listing.splitlines() if ln.strip().startswith("✓ enabled")]
+    to_disable = [t for t in enabled if t not in PROFIT_ALLOWED_TOOLSETS]
+    if to_disable:
+        p = run([hermes, "-p", HERMES_PROFILE, "tools", "disable", *to_disable])
+        print("disabled toolsets:", ", ".join(to_disable), "" if p.returncode == 0 else p.stderr[-300:])
+    p = run([hermes, "-p", HERMES_PROFILE, "tools", "disable", *[f"revenue_agent:{t}" for t in PROFIT_MCP_DISABLED]])
+    print("disabled MCP tools:", "ok" if p.returncode == 0 else p.stderr[-300:])
+    # The business this profile may read is fixed here, in config: never chosen by a prompt or the model.
+    for key, value in (("MCP_TENANT", tenant), ("DATA_DIR", str(settings.data_dir)),
+                       ("DB_PATH", str(settings.db_path))):
+        p = run([hermes, "-p", HERMES_PROFILE, "config", "set", f"mcp_servers.revenue_agent.env.{key}", value])
+        if p.returncode != 0:
+            print("could not set MCP env", key, p.stderr[-200:])
+            return 1
+    print(f"MCP server pinned to tenant '{tenant}' and database {settings.db_path}")
+    target = home / "skills" / "finance" / "tahseela-profit" / "SKILL.md"
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text((ROOT / "skills" / "tahseela-profit" / "SKILL.md").read_text())
+    print("skill installed:", target)
+    after = run([hermes, "-p", HERMES_PROFILE, "tools", "list"]).stdout
+    still = [ln.split()[2] for ln in after.splitlines() if ln.strip().startswith("✓ enabled")
+             and ln.split()[2] not in PROFIT_ALLOWED_TOOLSETS]
+    if still:
+        print("REFUSING to mark the profile safe; still enabled:", ", ".join(still))
+        return 1
+    (home / ".tahseela-locked").write_text(f"built-in toolsets disabled except skills; set by revenue-agent; "
+                                           f"tenant={tenant}\n")
+    print(f"Profile '{HERMES_PROFILE}' is locked down. Advisor engine: PROFIT_ADVISOR_ENGINE=hermes (or auto).")
+    return 0
 
 
 def cmd_doctor(args) -> int:
@@ -343,14 +410,18 @@ def main(argv: list[str] | None = None) -> int:
     s = sub.add_parser("serve", help="start the web dashboard")
     s.add_argument("--host", default="127.0.0.1")
     s.add_argument("--port", type=int, default=8000)
+    s.add_argument("--insecure", action="store_true", help="allow a non-local bind without any API token")
     s.set_defaults(func=cmd_serve)
 
-    sd = sub.add_parser("seed-demo", help="fill the app with realistic demo data (offline, free, ~5 seconds)")
+    sd = sub.add_parser("seed-demo", help="SIMULATION LAB ONLY: fill the /judges lab with synthetic runs (never touches imported data)")
     sd.add_argument("--size", type=int, default=24)
     sd.set_defaults(func=cmd_seed_demo)
 
     sub.add_parser("hermes-setup", help="install the skill into Hermes and register the MCP server").set_defaults(
         func=cmd_hermes_setup)
+    hp = sub.add_parser("hermes-setup-profit", help="create the locked-down Hermes profile for the profit advisor")
+    hp.add_argument("--tenant", default="default", help="business (tenant) this profile may read")
+    hp.set_defaults(func=cmd_hermes_setup_profit)
     sub.add_parser("doctor", help="check configuration").set_defaults(func=cmd_doctor)
 
     args = p.parse_args(argv)

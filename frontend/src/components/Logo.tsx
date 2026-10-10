@@ -1,17 +1,12 @@
 import { useApp } from "@/lib/app-context";
 
 export function LogoMark({ size = 36 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 40 40" aria-hidden className="shrink-0">
-      <rect width="40" height="40" rx="11" className="fill-primary" />
-      <g className="stroke-primary-foreground" strokeWidth="2.4" fill="none" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M7 12h11c3 0 4 1.5 4 4" />
-        <path d="M18.5 8.5 22 12l-3.5 3.5" transform="translate(0 4) rotate(90 22 12)" />
-        <rect x="11" y="18" width="22" height="14" rx="3.5" />
-        <path d="M33 23h-5a2 2 0 0 0 0 4h5" />
-      </g>
-    </svg>
-  );
+  return <img src="/logo-mark.png" width={size} height={size} alt="" aria-hidden className="shrink-0" />;
+}
+
+/** The full logo (mascot + the Arabic wordmark), for the home page. */
+export function LogoFull({ size = 160 }: { size?: number }) {
+  return <img src="/logo.png" width={size} height={size} alt="ربحية" className="shrink-0" />;
 }
 
 export function Logo({ size = 36 }: { size?: number }) {

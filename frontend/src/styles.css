@@ -34,60 +34,60 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --shadow-soft: 0 1px 2px rgb(11 31 58 / 0.04), 0 8px 24px -12px rgb(11 31 58 / 0.12);
+  --shadow-soft: 0 1px 2px rgb(20 50 35 / 0.05), 0 8px 24px -14px rgb(20 50 35 / 0.16);
 }
 
 :root {
-  --radius: 1rem;
-  --background: oklch(0.977 0.005 255);
-  --foreground: oklch(0.235 0.06 258);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.235 0.06 258);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.235 0.06 258);
-  --primary: oklch(0.511 0.086 186.4);
-  --primary-foreground: oklch(1 0 0);
-  --primary-soft: oklch(0.959 0.018 182);
-  --secondary: oklch(0.959 0.008 255);
-  --secondary-foreground: oklch(0.235 0.06 258);
-  --muted: oklch(0.959 0.008 255);
-  --muted-foreground: oklch(0.51 0.04 258);
-  --accent: oklch(0.959 0.018 182);
-  --accent-foreground: oklch(0.235 0.06 258);
-  --destructive: oklch(0.505 0.19 27.5);
-  --destructive-foreground: oklch(1 0 0);
-  --success: oklch(0.527 0.137 150);
-  --warning: oklch(0.555 0.146 49);
-  --danger: oklch(0.505 0.19 27.5);
-  --border: oklch(0.928 0.012 255);
-  --input: oklch(0.928 0.012 255);
-  --ring: oklch(0.511 0.086 186.4);
+  --radius: 0.9rem;
+  --background: oklch(0.975 0.007 85);
+  --foreground: oklch(0.24 0.025 160);
+  --card: oklch(0.995 0.003 85);
+  --card-foreground: oklch(0.24 0.025 160);
+  --popover: oklch(0.995 0.003 85);
+  --popover-foreground: oklch(0.24 0.025 160);
+  --primary: oklch(0.43 0.085 158);
+  --primary-foreground: oklch(0.99 0.005 85);
+  --primary-soft: oklch(0.95 0.025 150);
+  --secondary: oklch(0.95 0.01 85);
+  --secondary-foreground: oklch(0.24 0.025 160);
+  --muted: oklch(0.948 0.01 85);
+  --muted-foreground: oklch(0.5 0.02 150);
+  --accent: oklch(0.95 0.025 150);
+  --accent-foreground: oklch(0.24 0.025 160);
+  --destructive: oklch(0.52 0.17 28);
+  --destructive-foreground: oklch(0.99 0 0);
+  --success: oklch(0.52 0.11 150);
+  --warning: oklch(0.58 0.13 62);
+  --danger: oklch(0.52 0.17 28);
+  --border: oklch(0.905 0.012 85);
+  --input: oklch(0.905 0.012 85);
+  --ring: oklch(0.43 0.085 158);
 }
 
 .dark {
-  --background: oklch(0.185 0.04 258);
-  --foreground: oklch(0.945 0.012 250);
-  --card: oklch(0.235 0.045 258);
-  --card-foreground: oklch(0.945 0.012 250);
-  --popover: oklch(0.235 0.045 258);
-  --popover-foreground: oklch(0.945 0.012 250);
-  --primary: oklch(0.795 0.134 181);
-  --primary-foreground: oklch(0.185 0.04 258);
-  --primary-soft: oklch(0.31 0.045 200);
-  --secondary: oklch(0.29 0.05 258);
-  --secondary-foreground: oklch(0.945 0.012 250);
-  --muted: oklch(0.29 0.05 258);
-  --muted-foreground: oklch(0.71 0.035 257);
-  --accent: oklch(0.31 0.045 200);
-  --accent-foreground: oklch(0.945 0.012 250);
-  --destructive: oklch(0.711 0.166 22);
-  --destructive-foreground: oklch(0.185 0.04 258);
-  --success: oklch(0.8 0.18 152);
-  --warning: oklch(0.837 0.164 84);
-  --danger: oklch(0.711 0.166 22);
-  --border: oklch(0.31 0.05 258);
-  --input: oklch(0.31 0.05 258);
-  --ring: oklch(0.795 0.134 181);
+  --background: oklch(0.19 0.02 160);
+  --foreground: oklch(0.94 0.01 85);
+  --card: oklch(0.235 0.022 160);
+  --card-foreground: oklch(0.94 0.01 85);
+  --popover: oklch(0.235 0.022 160);
+  --popover-foreground: oklch(0.94 0.01 85);
+  --primary: oklch(0.74 0.11 155);
+  --primary-foreground: oklch(0.19 0.02 160);
+  --primary-soft: oklch(0.3 0.04 158);
+  --secondary: oklch(0.28 0.02 160);
+  --secondary-foreground: oklch(0.94 0.01 85);
+  --muted: oklch(0.28 0.02 160);
+  --muted-foreground: oklch(0.72 0.02 120);
+  --accent: oklch(0.3 0.04 158);
+  --accent-foreground: oklch(0.94 0.01 85);
+  --destructive: oklch(0.7 0.16 25);
+  --destructive-foreground: oklch(0.19 0.02 160);
+  --success: oklch(0.76 0.14 152);
+  --warning: oklch(0.8 0.14 80);
+  --danger: oklch(0.7 0.16 25);
+  --border: oklch(0.32 0.02 160);
+  --input: oklch(0.32 0.02 160);
+  --ring: oklch(0.74 0.11 155);
 }
 
 @layer base {
@@ -142,3 +142,8 @@
 }
 /* Visible keyboard focus everywhere */
 :focus-visible { outline: 2px solid var(--color-primary, #0F766E); outline-offset: 2px; }
+/* Amounts are rendered LTR for correct digit/currency order; in Arabic they still align with RTL column headers. */
+[dir="rtl"] td[dir="ltr"], [dir="rtl"] th[dir="ltr"] { text-align: right; }
+
+/* "Show me" from the guide: briefly outline the card it points to */
+.guide-flash { outline: 3px solid var(--color-primary); outline-offset: 4px; transition: outline-color 0.3s; }

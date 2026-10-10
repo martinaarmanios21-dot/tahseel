@@ -1,0 +1,4 @@
+PlastiPack - Quotation (TEST DATA)
+Item: plastic courier bag 25x35 cm (NOT a box)
+Unit price: 3.20 EGP
+MOQ: 2,000 pcs

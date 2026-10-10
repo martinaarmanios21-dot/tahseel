@@ -93,7 +93,19 @@ def validate_content(content: str, settings: Settings | None = None) -> list[str
         inst = do.get("installments")
         if inst is not None and (not isinstance(inst, int) or not 2 <= inst <= settings.max_installments):
             errors.append(f"rule {i}: installments must be 2..{settings.max_installments}")
+        if covers_first_contact(rule.get("when") or {}) and not first_contact_ok(do):
+            errors.append(f"rule {i}: first contact without a reply signal must not escalate or use a firm tone")
     return errors
+
+
+def covers_first_contact(when: dict) -> bool:
+    """True if a rule can fire on a first touch with no customer signal (the classic reward-hacking spot)."""
+    return when.get("signal", "none") == "none" and when.get("touch", "first") == "first"
+
+
+def first_contact_ok(do: dict) -> bool:
+    """Anti reward-hacking constraint: never open with escalation or a firm tone. Deterministic, not learned."""
+    return do.get("action") != "escalate_to_human" and do.get("tone") != "firm"
 
 
 def with_version(content: str, version: int) -> str:

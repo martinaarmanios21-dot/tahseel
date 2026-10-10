@@ -10,128 +10,43 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AssistantRouteImport } from './routes/assistant'
-import { Route as BusinessesRouteImport } from './routes/businesses'
-import { Route as CustomersRouteImport } from './routes/customers'
-import { Route as JudgesRouteImport } from './routes/judges'
-import { Route as LearningRouteImport } from './routes/learning'
-import { Route as SummaryRouteImport } from './routes/summary'
-import { Route as TasksRouteImport } from './routes/tasks'
+import { Route as InvestigationIdRouteImport } from './routes/investigation.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AssistantRoute = AssistantRouteImport.update({
-  id: '/assistant',
-  path: '/assistant',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BusinessesRoute = BusinessesRouteImport.update({
-  id: '/businesses',
-  path: '/businesses',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CustomersRoute = CustomersRouteImport.update({
-  id: '/customers',
-  path: '/customers',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const JudgesRoute = JudgesRouteImport.update({
-  id: '/judges',
-  path: '/judges',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LearningRoute = LearningRouteImport.update({
-  id: '/learning',
-  path: '/learning',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SummaryRoute = SummaryRouteImport.update({
-  id: '/summary',
-  path: '/summary',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TasksRoute = TasksRouteImport.update({
-  id: '/tasks',
-  path: '/tasks',
+const InvestigationIdRoute = InvestigationIdRouteImport.update({
+  id: '/investigation/$id',
+  path: '/investigation/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/assistant': typeof AssistantRoute
-  '/businesses': typeof BusinessesRoute
-  '/customers': typeof CustomersRoute
-  '/judges': typeof JudgesRoute
-  '/learning': typeof LearningRoute
-  '/summary': typeof SummaryRoute
-  '/tasks': typeof TasksRoute
+  '/investigation/$id': typeof InvestigationIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/assistant': typeof AssistantRoute
-  '/businesses': typeof BusinessesRoute
-  '/customers': typeof CustomersRoute
-  '/judges': typeof JudgesRoute
-  '/learning': typeof LearningRoute
-  '/summary': typeof SummaryRoute
-  '/tasks': typeof TasksRoute
+  '/investigation/$id': typeof InvestigationIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/assistant': typeof AssistantRoute
-  '/businesses': typeof BusinessesRoute
-  '/customers': typeof CustomersRoute
-  '/judges': typeof JudgesRoute
-  '/learning': typeof LearningRoute
-  '/summary': typeof SummaryRoute
-  '/tasks': typeof TasksRoute
+  '/investigation/$id': typeof InvestigationIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/assistant'
-    | '/businesses'
-    | '/customers'
-    | '/judges'
-    | '/learning'
-    | '/summary'
-    | '/tasks'
+  fullPaths: '/' | '/investigation/$id'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/assistant'
-    | '/businesses'
-    | '/customers'
-    | '/judges'
-    | '/learning'
-    | '/summary'
-    | '/tasks'
-  id:
-    | '__root__'
-    | '/'
-    | '/assistant'
-    | '/businesses'
-    | '/customers'
-    | '/judges'
-    | '/learning'
-    | '/summary'
-    | '/tasks'
+  to: '/' | '/investigation/$id'
+  id: '__root__' | '/' | '/investigation/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AssistantRoute: typeof AssistantRoute
-  BusinessesRoute: typeof BusinessesRoute
-  CustomersRoute: typeof CustomersRoute
-  JudgesRoute: typeof JudgesRoute
-  LearningRoute: typeof LearningRoute
-  SummaryRoute: typeof SummaryRoute
-  TasksRoute: typeof TasksRoute
+  InvestigationIdRoute: typeof InvestigationIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -143,53 +58,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/assistant': {
-      id: '/assistant'
-      path: '/assistant'
-      fullPath: '/assistant'
-      preLoaderRoute: typeof AssistantRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/businesses': {
-      id: '/businesses'
-      path: '/businesses'
-      fullPath: '/businesses'
-      preLoaderRoute: typeof BusinessesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/customers': {
-      id: '/customers'
-      path: '/customers'
-      fullPath: '/customers'
-      preLoaderRoute: typeof CustomersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/judges': {
-      id: '/judges'
-      path: '/judges'
-      fullPath: '/judges'
-      preLoaderRoute: typeof JudgesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/learning': {
-      id: '/learning'
-      path: '/learning'
-      fullPath: '/learning'
-      preLoaderRoute: typeof LearningRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/summary': {
-      id: '/summary'
-      path: '/summary'
-      fullPath: '/summary'
-      preLoaderRoute: typeof SummaryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/tasks': {
-      id: '/tasks'
-      path: '/tasks'
-      fullPath: '/tasks'
-      preLoaderRoute: typeof TasksRouteImport
+    '/investigation/$id': {
+      id: '/investigation/$id'
+      path: '/investigation/$id'
+      fullPath: '/investigation/$id'
+      preLoaderRoute: typeof InvestigationIdRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -197,13 +70,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AssistantRoute: AssistantRoute,
-  BusinessesRoute: BusinessesRoute,
-  CustomersRoute: CustomersRoute,
-  JudgesRoute: JudgesRoute,
-  LearningRoute: LearningRoute,
-  SummaryRoute: SummaryRoute,
-  TasksRoute: TasksRoute,
+  InvestigationIdRoute: InvestigationIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

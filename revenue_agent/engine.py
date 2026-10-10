@@ -497,7 +497,9 @@ def compute_metrics(conn: sqlite3.Connection, run_id: str) -> dict:
         return {}
     collectible = [i for i in invoices if i["persona"] in simulator.COLLECTIBLE]
     total_collectible = sum(i["amount_cents"] for i in collectible)
-    collected = sum(i["amount_cents"] for i in collectible if i["state"] in ("PAID", "PLAN_AGREED"))
+    # Cash means PAID. An agreed instalment plan is a promise, not cash, and is reported separately.
+    collected = sum(i["amount_cents"] for i in collectible if i["state"] == "PAID")
+    planned = sum(i["amount_cents"] for i in collectible if i["state"] == "PLAN_AGREED")
     outcome = conn.execute("SELECT COALESCE(SUM(reward),0), COUNT(*) FROM outcomes WHERE run_id=?", (run_id,)).fetchone()
     blocks = conn.execute("SELECT COUNT(*) FROM actions WHERE run_id=? AND status='blocked'", (run_id,)).fetchone()[0]
     complaints = conn.execute("SELECT COUNT(*) FROM outcomes WHERE run_id=? AND result='complaint'", (run_id,)).fetchone()[0]
@@ -513,6 +515,8 @@ def compute_metrics(conn: sqlite3.Connection, run_id: str) -> dict:
         "collection_rate": round(collected / total_collectible, 4) if total_collectible else 0.0,
         "collected_cents": collected,
         "collectible_cents": total_collectible,
+        "plan_agreed_rate": round(planned / total_collectible, 4) if total_collectible else 0.0,
+        "plan_agreed_cents": planned,
         "correct_resolution_rate": round(sum(simulator.correct_resolution(i) for i in invoices) / len(invoices), 4),
         "reward_per_invoice": round(outcome[0] / len(invoices), 4),
         "guardrail_blocks": blocks,

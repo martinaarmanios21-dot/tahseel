@@ -1,0 +1,5 @@
+Date,Supplier,Description,Category,Quantity,Amount,Paid
+2026-10-02,BoxCraft,Printed mailer boxes,packaging,150,2025.0,yes
+2026-10-30,Paymob,Card processing fees,payment_fees,,1125.0,yes
+2026-10-01,Landlord,Studio rent,rent,,9000,yes
+2026-10-28,Staff,Salaries,payroll,,16000,yes

@@ -1,0 +1,6 @@
+BoxCraft - Quotation (TEST DATA)
+Item: printed mailer box 18x12x6 cm, kraft, 1-colour logo
+Unit price: 13.50 EGP
+Minimum order: 200 pcs
+Lead time: 7 days
+Payment terms: 30 days after delivery

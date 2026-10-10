@@ -10,9 +10,9 @@ from pathlib import Path
 
 import os
 
-from fastapi import Body, FastAPI, HTTPException
+from fastapi import Body, FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 from .. import db, learning, skills
@@ -21,19 +21,44 @@ from ..engine import Engine, RunBusy
 from ..guardrails import classify_reply
 from ..llm import BudgetExceeded, _bump
 from ..observability import emit
+from ..ledger import store as ledger_store
 from ..simulator import BUSINESSES
+from . import auth
+from .profit_api import router as profit_router
+from .guide_api import router as guide_router
 
 STATIC = Path(__file__).parent / "static"
-FRONTEND_DIST = Path(__file__).parent / "app"   # the Tahseel web app (built from frontend/, committed)
-app = FastAPI(title="Tahseel API", version="0.2.0",
-              description="Back end for the Tahseel self-improving collections agent. All user-facing text is "
-                          "returned as codes so the front end can localise it (Arabic / English).")
+FRONTEND_DIST = Path(__file__).parent / "app"   # the Ribhiya web app (built from frontend/, committed)
+app = FastAPI(title="Ribhiya API", version="0.3.0",
+              description="Back end for Ribhiya, an AI profitability and cost-leakage specialist that works on the "
+                          "owner's own business files. The /api/train, /api/learn, /api/workspace and /judges endpoints "
+                          "are the separate simulation lab (synthetic data only).")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[o.strip() for o in os.environ.get("CORS_ORIGINS", "*").split(",")],
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+
+@app.middleware("http")
+async def authenticate(request: Request, call_next):
+    """Authentication + tenant resolution for every /api request (see web/auth.py). Fails closed."""
+    if request.url.path.startswith("/api/"):
+        principal = auth.resolve(request.headers.get("x-tahsila-token"))
+        if principal is None:
+            return JSONResponse({"detail": {"code": "unauthorized", "message": "valid X-Tahsila-Token required"}},
+                                status_code=401)
+        if not auth.allowed(principal, request.url.path):
+            return JSONResponse({"detail": {"code": "forbidden", "message": "not allowed for this token"}},
+                                status_code=403)
+        request.state.principal = principal
+    return await call_next(request)
+
+
+app.include_router(profit_router)
+app.include_router(guide_router)
 
 _job_lock = threading.Lock()
 _job: dict = {"name": None, "status": "idle", "started_at": None, "finished_at": None, "result": None, "error": None}
@@ -230,12 +255,28 @@ def live_step(run_id: str):
     return _start_job("live round", lambda conn: _engine(conn).step_live(run_id)["round"])
 
 
+@app.get("/api/status")
+def status(request: Request):
+    """What every page needs: the emergency stop state and which integrations are configured."""
+    conn = _conn()
+    s = get_settings()
+    return {"kill_switch": db.kill_switch_on(conn), "llm_configured": bool(s.available_providers()),
+            "email_configured": ledger_store.ledger_settings().email_configured}
+
+
+@app.get("/api/audit")
+def audit_log(request: Request, limit: int = 200):
+    p = getattr(request.state, "principal", None)
+    return ledger_store.audit_entries(_conn(), p.tenant if p else ledger_store.DEFAULT_TENANT, min(max(limit, 1), 500))
+
+
 @app.post("/api/kill")
 def kill(body: dict = Body(...)):
     conn = _conn()
     on = bool(body.get("on"))
     db.set_kill_switch(conn, on)
     emit(conn, "kill_switch", level="warn", on=on, by="dashboard")
+    ledger_store.audit(conn, "human:dashboard", "kill_switch_on" if on else "kill_switch_off")
     return {"kill_switch": on}
 
 
@@ -284,7 +325,7 @@ def demo_budget():
     return {"allowed_calls": used, "result": "UNEXPECTED: cap not enforced"}
 
 
-# ------------------------------------------------------------- friendly API for the Tahseel front end
+# ------------------------------------------------------------- friendly API for the Ribhiya front end
 
 STATUS_GROUP = {  # one simple status per customer for non-technical users
     "NEW": "waiting", "CONTACTED": "in_progress", "AWAITING_APPROVAL": "needs_you", "PAID": "paid",

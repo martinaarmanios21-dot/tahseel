@@ -17,7 +17,12 @@ def _load_dotenv(path: Path) -> None:
         if not line or line.startswith("#") or "=" not in line:
             continue
         key, value = line.split("=", 1)
-        os.environ.setdefault(key.strip(), value.strip().strip('"').strip("'"))
+        value = value.strip()
+        if value[:1] in ('"', "'"):
+            value = value[1:].split(value[0], 1)[0]
+        else:
+            value = value.split(" #", 1)[0].split("\t#", 1)[0].strip()  # inline comment
+        os.environ.setdefault(key.strip(), value)
 
 
 _load_dotenv(ROOT / ".env")
@@ -95,6 +100,20 @@ class Settings:
     eval_size: int
     eval_seeds: tuple[int, ...]
     promotion_margin: float
+    # interactive agent (per user request / per chat session)
+    max_model_calls_per_request: int
+    max_agent_steps: int
+    max_tool_calls_per_request: int
+    max_input_tokens: int
+    max_output_tokens: int
+    max_request_seconds: float
+    max_user_message_chars: int
+    max_history_messages: int
+    max_session_tokens: int
+    llm_price_in_per_1k: float      # USD per 1k input tokens; 0 = unknown (cost is then not estimated)
+    llm_price_out_per_1k: float
+    max_cost_per_request_usd: float  # 0 = no cost ceiling (call/token ceilings still apply)
+    max_cost_per_session_usd: float
     # hermes
     hermes_bin: str
     hermes_profile: str
@@ -154,6 +173,19 @@ def get_settings() -> Settings:
         eval_size=_int("EVAL_SIZE", 40),
         eval_seeds=seeds,
         promotion_margin=_float("PROMOTION_MARGIN", 0.05),
+        max_model_calls_per_request=_int("MAX_MODEL_CALLS_PER_REQUEST", 6),
+        max_agent_steps=_int("MAX_AGENT_STEPS", 5),
+        max_tool_calls_per_request=_int("MAX_TOOL_CALLS_PER_REQUEST", 10),
+        max_input_tokens=_int("MAX_INPUT_TOKENS", 24_000),
+        max_output_tokens=_int("MAX_OUTPUT_TOKENS", 2_000),
+        max_request_seconds=_float("MAX_REQUEST_SECONDS", 75.0),
+        max_user_message_chars=_int("MAX_USER_MESSAGE_CHARS", 2_000),
+        max_history_messages=_int("MAX_HISTORY_MESSAGES", 6),
+        max_session_tokens=_int("MAX_SESSION_TOKENS", 200_000),
+        llm_price_in_per_1k=_float("LLM_PRICE_IN_PER_1K", 0.0),
+        llm_price_out_per_1k=_float("LLM_PRICE_OUT_PER_1K", 0.0),
+        max_cost_per_request_usd=_float("MAX_COST_PER_REQUEST_USD", 0.0),
+        max_cost_per_session_usd=_float("MAX_COST_PER_SESSION_USD", 0.0),
         hermes_bin=_env("HERMES_BIN", "hermes"),
         hermes_profile=_env("HERMES_PROFILE", "tahseel"),
         hermes_model=_env("HERMES_MODEL"),

@@ -191,7 +191,7 @@ def respond(invoice: dict, decision: dict, rnd: int, seed: int) -> SimResponse:
             return SimResponse("escalated", None, 1.0, 0)
         if persona == "already_paid":
             return SimResponse("escalated", None, 0.3, 0)
-        return SimResponse("escalated", None, 0.1, 0)  # wasted human time on a collectible invoice
+        return SimResponse("escalated", None, 0.0, 0)  # wasted human time on a collectible invoice: no reward
     if action == "verify_payment":
         if ledger_paid(invoice, rnd):
             return SimResponse("verified_paid", None, 1.0, 0)

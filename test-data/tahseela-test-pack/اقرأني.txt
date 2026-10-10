@@ -1,0 +1,3 @@
+Nour Naturals (TEST DATA): a fictional skincare brand made up for testing Ribhiya.
+No real customers, suppliers or transactions. See دليل_التجربة.md for the step-by-step test.
+بيانات تجريبية لبراند وهمي. مفيش عملاء أو موردين حقيقيين. الخطوات في دليل_التجربة.md

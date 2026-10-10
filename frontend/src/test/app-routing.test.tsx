@@ -14,4 +14,13 @@ describe("App routing", () => {
 
     expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
   });
+
+  it("has no pages left for the removed collections workflow", () => {
+    const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
+
+    for (const path of ["/collections", "/data", "/overview", "/invoices", "/invoice/T-1", "/followups", "/strategy"]) {
+      expect(router.matchRoutes(path).at(-1)?.routeId).toBe(rootRouteId);
+    }
+    expect(router.matchRoutes("/investigation/abc").at(-1)?.routeId).toBe("/investigation/$id");
+  });
 });

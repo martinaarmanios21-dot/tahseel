@@ -1,3 +1,7 @@
+> **Superseded (2026-10-10):** the simulation numbers below counted agreed instalment plans as collected cash and
+> rewarded first-contact escalation. See [EVALUATION_METHODOLOGY.md](EVALUATION_METHODOLOGY.md) for the corrected
+> metrics and result (the learned candidate is now rejected by the gate). All figures here are synthetic.
+
 # Evals and results
 
 ## What is measured

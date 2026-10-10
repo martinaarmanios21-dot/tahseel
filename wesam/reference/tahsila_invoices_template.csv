@@ -1,0 +1,1 @@
+invoice_id,customer_id,customer_name,amount,currency,issue_date,due_date,status,amount_paid,outstanding,payment_date,last_contact_date,disputed,do_not_contact,contact_email,contact_phone,contact_name,language,notes

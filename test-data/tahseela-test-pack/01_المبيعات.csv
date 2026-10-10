@@ -1,0 +1,333 @@
+Order ID,Date,Product,Quantity,Unit Price,Discount,Channel,Shipping Charged,Status
+NN-00001,2026-08-04,Lip Balm Trio,1,95,0,website,40,completed
+NN-00001,2026-08-04,Rosemary Hair Oil 100ml,1,260,0,website,40,completed
+NN-00002,2026-08-20,Lip Balm Trio,1,95,0,instagram,0,completed
+NN-00003,2026-08-25,Lip Balm Trio,1,95,0,instagram,0,completed
+NN-00003,2026-08-25,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-00004,2026-08-04,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-00005,2026-08-16,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-00006,2026-08-12,Hydrating Face Cream 50ml,1,380,0,instagram,0,completed
+NN-00006,2026-08-12,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-00007,2026-08-18,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-00008,2026-08-23,Lip Balm Trio,1,95,0,website,40,completed
+NN-00009,2026-08-14,Lip Balm Trio,1,95,0,website,40,completed
+NN-00009,2026-08-14,Rosemary Hair Oil 100ml,1,260,0,website,40,completed
+NN-00010,2026-08-26,Hydrating Face Cream 50ml,1,380,0,instagram,0,completed
+NN-00011,2026-08-09,Rosemary Hair Oil 100ml,1,260,0,instagram,0,completed
+NN-00012,2026-08-26,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-00013,2026-08-23,Lip Balm Trio,1,95,0,website,40,completed
+NN-00014,2026-08-05,Rosemary Hair Oil 100ml,1,260,0,website,40,completed
+NN-00015,2026-08-15,Rosemary Hair Oil 100ml,1,260,0,instagram,0,completed
+NN-00015,2026-08-15,Rosemary Hair Oil 100ml,1,260,0,instagram,0,completed
+NN-00016,2026-08-13,Glow Gift Set,1,950,0,instagram,0,completed
+NN-00017,2026-08-16,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-00018,2026-08-01,Lip Balm Trio,1,95,0,website,40,completed
+NN-00019,2026-08-17,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-00020,2026-08-15,Glow Gift Set,1,950,0,website,0,completed
+NN-00020,2026-08-15,Lip Balm Trio,1,95,0,website,0,completed
+NN-00021,2026-08-27,Glow Gift Set,1,950,0,website,0,completed
+NN-00022,2026-08-23,Hydrating Face Cream 50ml,1,380,0,instagram,0,completed
+NN-00023,2026-08-14,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-00024,2026-08-16,Rosemary Hair Oil 100ml,1,260,0,website,40,completed
+NN-00025,2026-08-01,Hydrating Face Cream 50ml,1,380,0,website,40,completed
+NN-00026,2026-08-20,Lip Balm Trio,1,95,0,instagram,0,completed
+NN-00027,2026-08-09,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-00028,2026-08-19,Rosemary Hair Oil 100ml,1,260,0,website,40,completed
+NN-00028,2026-08-19,Lip Balm Trio,1,95,0,website,40,completed
+NN-00029,2026-08-18,Rosemary Hair Oil 100ml,1,260,0,website,40,completed
+NN-00030,2026-08-17,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-00031,2026-08-26,Hydrating Face Cream 50ml,1,380,0,instagram,0,completed
+NN-00032,2026-08-17,Rosemary Hair Oil 100ml,1,260,0,instagram,0,completed
+NN-00033,2026-08-03,Hydrating Face Cream 50ml,1,380,0,website,40,completed
+NN-00034,2026-08-01,Lip Balm Trio,1,95,0,website,40,completed
+NN-00035,2026-08-04,Lip Balm Trio,1,95,0,website,40,completed
+NN-00036,2026-08-19,Hydrating Face Cream 50ml,1,380,0,website,40,completed
+NN-00037,2026-08-22,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-00038,2026-08-06,Glow Gift Set,1,950,0,website,0,completed
+NN-00039,2026-08-25,Lip Balm Trio,1,95,0,instagram,0,completed
+NN-00040,2026-08-21,Hydrating Face Cream 50ml,1,380,0,website,0,completed
+NN-00040,2026-08-21,Rosemary Hair Oil 100ml,1,260,0,website,0,completed
+NN-00041,2026-08-28,Hydrating Face Cream 50ml,1,380,0,website,40,completed
+NN-00042,2026-08-13,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-00043,2026-08-25,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-00044,2026-08-15,Glow Gift Set,1,950,0,website,0,completed
+NN-00044,2026-08-15,Glow Gift Set,1,950,0,website,0,completed
+NN-00045,2026-08-08,Hydrating Face Cream 50ml,1,380,0,website,40,completed
+NN-00046,2026-08-18,Lip Balm Trio,1,95,0,instagram,0,completed
+NN-00046,2026-08-18,Rosemary Hair Oil 100ml,1,260,0,instagram,0,completed
+NN-00047,2026-08-06,Glow Gift Set,1,950,0,website,0,completed
+NN-00048,2026-08-20,Lip Balm Trio,1,95,0,instagram,0,completed
+NN-00049,2026-08-10,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-00050,2026-08-04,Lip Balm Trio,1,95,0,instagram,0,completed
+NN-00051,2026-08-24,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-00052,2026-08-19,Hydrating Face Cream 50ml,1,380,0,instagram,0,completed
+NN-00053,2026-08-03,Rosemary Hair Oil 100ml,1,260,0,website,0,completed
+NN-00053,2026-08-03,Vitamin C Serum 30ml,1,420,0,website,0,completed
+NN-00054,2026-08-02,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-00055,2026-08-19,Hydrating Face Cream 50ml,1,380,0,instagram,0,completed
+NN-00055,2026-08-19,Hydrating Face Cream 50ml,1,380,0,instagram,0,completed
+NN-00056,2026-08-23,Hydrating Face Cream 50ml,1,380,0,instagram,0,completed
+NN-00056,2026-08-23,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-00057,2026-08-22,Rosemary Hair Oil 100ml,1,260,0,instagram,0,completed
+NN-00058,2026-08-09,Hydrating Face Cream 50ml,1,380,0,website,40,completed
+NN-00058,2026-08-09,Lip Balm Trio,1,95,0,website,40,completed
+NN-00059,2026-08-01,Lip Balm Trio,1,95,0,website,40,completed
+NN-00060,2026-08-04,Lip Balm Trio,1,95,0,website,40,completed
+NN-00061,2026-08-11,Rosemary Hair Oil 100ml,1,260,0,website,40,completed
+NN-00062,2026-08-04,Hydrating Face Cream 50ml,1,380,0,website,40,completed
+NN-00063,2026-08-21,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-00064,2026-08-13,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-00065,2026-08-18,Hydrating Face Cream 50ml,1,380,0,website,40,completed
+NN-00065,2026-08-18,Lip Balm Trio,1,95,0,website,40,completed
+NN-00066,2026-08-26,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-00067,2026-08-09,Lip Balm Trio,1,95,0,instagram,0,completed
+NN-00068,2026-08-06,Rosemary Hair Oil 100ml,1,260,0,website,40,completed
+NN-00069,2026-08-09,Lip Balm Trio,1,95,0,website,40,completed
+NN-00070,2026-08-27,Hydrating Face Cream 50ml,1,380,0,website,0,completed
+NN-00070,2026-08-27,Rosemary Hair Oil 100ml,1,260,0,website,0,completed
+NN-00071,2026-08-28,Rosemary Hair Oil 100ml,1,260,0,website,40,completed
+NN-00071,2026-08-28,Lip Balm Trio,1,95,0,website,40,completed
+NN-00072,2026-08-26,Hydrating Face Cream 50ml,1,380,0,website,0,completed
+NN-00072,2026-08-26,Vitamin C Serum 30ml,1,420,0,website,0,completed
+NN-00073,2026-08-21,Rosemary Hair Oil 100ml,1,260,0,website,40,completed
+NN-00073,2026-08-21,Lip Balm Trio,1,95,0,website,40,completed
+NN-00074,2026-08-06,Rosemary Hair Oil 100ml,1,260,0,instagram,0,completed
+NN-00075,2026-08-27,Hydrating Face Cream 50ml,1,380,0,instagram,0,completed
+NN-00076,2026-08-06,Lip Balm Trio,1,95,0,website,40,completed
+NN-00077,2026-08-24,Hydrating Face Cream 50ml,1,380,0,website,0,completed
+NN-00077,2026-08-24,Glow Gift Set,1,950,0,website,0,completed
+NN-00078,2026-08-10,Hydrating Face Cream 50ml,1,380,0,website,0,completed
+NN-00078,2026-08-10,Rosemary Hair Oil 100ml,1,260,0,website,0,completed
+NN-00079,2026-08-21,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-00079,2026-08-21,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-00080,2026-08-18,Lip Balm Trio,1,95,0,website,40,completed
+NN-00081,2026-08-06,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-00082,2026-08-13,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-00082,2026-08-13,Lip Balm Trio,1,95,0,website,40,completed
+NN-00083,2026-08-14,Glow Gift Set,1,950,0,website,0,completed
+NN-00083,2026-08-14,Rosemary Hair Oil 100ml,1,260,0,website,0,completed
+NN-00084,2026-08-24,Hydrating Face Cream 50ml,1,380,0,website,40,completed
+NN-00085,2026-08-04,Lip Balm Trio,1,95,0,website,40,completed
+NN-00085,2026-08-04,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-00086,2026-08-12,Lip Balm Trio,1,95,0,website,40,completed
+NN-00087,2026-08-04,Rosemary Hair Oil 100ml,1,260,0,instagram,0,completed
+NN-00088,2026-08-13,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-00089,2026-08-16,Glow Gift Set,1,950,0,website,0,completed
+NN-00090,2026-08-15,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-00091,2026-08-26,Glow Gift Set,1,950,0,website,0,completed
+NN-00092,2026-08-11,Hydrating Face Cream 50ml,1,380,0,website,40,completed
+NN-00093,2026-08-22,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-00094,2026-08-08,Glow Gift Set,1,950,0,instagram,0,completed
+NN-00094,2026-08-08,Hydrating Face Cream 50ml,1,380,0,instagram,0,completed
+NN-00095,2026-08-19,Lip Balm Trio,1,95,0,website,40,completed
+NN-00096,2026-08-05,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-00097,2026-08-28,Lip Balm Trio,1,95,0,website,40,completed
+NN-00098,2026-08-05,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-00099,2026-08-13,Hydrating Face Cream 50ml,1,380,0,website,40,completed
+NN-00100,2026-08-04,Rosemary Hair Oil 100ml,1,260,0,instagram,0,completed
+NN-00100,2026-08-04,Glow Gift Set,1,950,0,instagram,0,completed
+NN-00101,2026-08-22,Hydrating Face Cream 50ml,1,380,0,instagram,0,completed
+NN-00102,2026-08-02,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-00102,2026-08-02,Lip Balm Trio,1,95,0,instagram,0,completed
+NN-00103,2026-08-11,Glow Gift Set,1,950,0,website,0,completed
+NN-00104,2026-08-28,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-00105,2026-08-04,Hydrating Face Cream 50ml,1,380,0,instagram,0,completed
+NN-00105,2026-08-04,Glow Gift Set,1,950,0,instagram,0,completed
+NN-00106,2026-08-17,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-00107,2026-08-18,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-00107,2026-08-18,Rosemary Hair Oil 100ml,1,260,0,instagram,0,completed
+NN-00108,2026-08-07,Hydrating Face Cream 50ml,1,380,0,instagram,0,completed
+NN-00109,2026-08-23,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-00110,2026-08-14,Hydrating Face Cream 50ml,1,380,0,website,40,completed
+NN-00111,2026-08-16,Hydrating Face Cream 50ml,1,380,0,instagram,0,completed
+NN-00112,2026-08-09,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-00113,2026-08-05,Vitamin C Serum 30ml,1,420,0,website,0,completed
+NN-00113,2026-08-05,Glow Gift Set,1,950,0,website,0,completed
+NN-00114,2026-08-09,Hydrating Face Cream 50ml,1,380,0,website,40,completed
+NN-00114,2026-08-09,Lip Balm Trio,1,95,0,website,40,completed
+NN-00115,2026-08-28,Lip Balm Trio,1,95,0,website,40,completed
+NN-00115,2026-08-28,Lip Balm Trio,1,95,0,website,40,completed
+NN-00116,2026-08-10,Rosemary Hair Oil 100ml,1,260,0,instagram,0,completed
+NN-00117,2026-08-20,Hydrating Face Cream 50ml,1,380,0,website,40,completed
+NN-00118,2026-08-18,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-00119,2026-08-28,Lip Balm Trio,1,95,0,website,40,completed
+NN-00119,2026-08-28,Rosemary Hair Oil 100ml,1,260,0,website,40,completed
+NN-00120,2026-08-01,Hydrating Face Cream 50ml,1,380,0,website,40,completed
+NN-01001,2026-09-17,Glow Gift Set,1,950,142,website,0,completed
+NN-01001,2026-09-17,Lip Balm Trio,1,95,0,website,0,completed
+NN-01002,2026-09-12,Lip Balm Trio,1,95,0,instagram,0,completed
+NN-01003,2026-09-18,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-01004,2026-09-19,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-01005,2026-09-06,Lip Balm Trio,1,95,14,website,40,completed
+NN-01005,2026-09-06,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-01006,2026-09-22,Hydrating Face Cream 50ml,1,380,0,website,40,completed
+NN-01007,2026-09-08,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-01007,2026-09-08,Lip Balm Trio,1,95,0,website,40,completed
+NN-01008,2026-09-17,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-01009,2026-09-27,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-01010,2026-09-03,Glow Gift Set,1,950,142,website,0,completed
+NN-01011,2026-09-16,Rosemary Hair Oil 100ml,1,260,0,website,40,completed
+NN-01012,2026-09-28,Hydrating Face Cream 50ml,1,380,0,website,40,completed
+NN-01013,2026-09-18,Rosemary Hair Oil 100ml,1,260,0,instagram,0,completed
+NN-01014,2026-09-03,Lip Balm Trio,1,95,14,website,40,completed
+NN-01015,2026-09-14,Rosemary Hair Oil 100ml,1,260,0,website,0,completed
+NN-01015,2026-09-14,Vitamin C Serum 30ml,1,420,0,website,0,completed
+NN-01016,2026-09-26,Hydrating Face Cream 50ml,1,380,0,website,0,completed
+NN-01016,2026-09-26,Hydrating Face Cream 50ml,1,380,57,website,0,completed
+NN-01017,2026-09-05,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-01018,2026-09-21,Lip Balm Trio,1,95,14,website,40,completed
+NN-01018,2026-09-21,Hydrating Face Cream 50ml,1,380,0,website,40,completed
+NN-01019,2026-09-12,Glow Gift Set,1,950,0,website,0,completed
+NN-01019,2026-09-12,Rosemary Hair Oil 100ml,1,260,39,website,0,completed
+NN-01020,2026-09-02,Lip Balm Trio,1,95,0,website,40,completed
+NN-01020,2026-09-02,Hydrating Face Cream 50ml,1,380,0,website,40,completed
+NN-01021,2026-09-16,Hydrating Face Cream 50ml,1,380,57,website,40,completed
+NN-01022,2026-09-06,Rosemary Hair Oil 100ml,1,260,0,website,40,completed
+NN-01023,2026-09-20,Rosemary Hair Oil 100ml,1,260,39,website,0,completed
+NN-01023,2026-09-20,Hydrating Face Cream 50ml,1,380,0,website,0,completed
+NN-01024,2026-09-23,Hydrating Face Cream 50ml,1,380,0,instagram,0,completed
+NN-01025,2026-09-14,Vitamin C Serum 30ml,1,420,63,website,40,completed
+NN-01026,2026-09-16,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-01027,2026-09-02,Vitamin C Serum 30ml,1,420,63,website,0,completed
+NN-01027,2026-09-02,Rosemary Hair Oil 100ml,1,260,0,website,0,completed
+NN-01028,2026-09-19,Hydrating Face Cream 50ml,1,380,0,website,40,completed
+NN-01029,2026-09-12,Lip Balm Trio,1,95,0,instagram,0,completed
+NN-01030,2026-09-26,Hydrating Face Cream 50ml,1,380,57,website,0,completed
+NN-01030,2026-09-26,Vitamin C Serum 30ml,1,420,63,website,0,completed
+NN-01031,2026-09-17,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-01032,2026-09-23,Lip Balm Trio,1,95,0,instagram,0,completed
+NN-01032,2026-09-23,Rosemary Hair Oil 100ml,1,260,39,instagram,0,completed
+NN-01033,2026-09-23,Lip Balm Trio,1,95,0,website,40,completed
+NN-01033,2026-09-23,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-01034,2026-09-21,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-01035,2026-09-01,Hydrating Face Cream 50ml,1,380,57,website,40,completed
+NN-01036,2026-09-24,Hydrating Face Cream 50ml,1,380,0,website,40,completed
+NN-01037,2026-09-02,Hydrating Face Cream 50ml,1,380,57,website,40,completed
+NN-01038,2026-09-14,Lip Balm Trio,1,95,14,website,40,completed
+NN-01039,2026-09-18,Hydrating Face Cream 50ml,1,380,0,website,0,completed
+NN-01039,2026-09-18,Rosemary Hair Oil 100ml,1,260,0,website,0,completed
+NN-01040,2026-09-03,Rosemary Hair Oil 100ml,1,260,0,instagram,0,completed
+NN-01041,2026-09-27,Vitamin C Serum 30ml,1,420,63,instagram,0,completed
+NN-01041,2026-09-27,Glow Gift Set,1,950,0,instagram,0,completed
+NN-01042,2026-09-27,Hydrating Face Cream 50ml,1,380,0,website,0,completed
+NN-01042,2026-09-27,Hydrating Face Cream 50ml,1,380,0,website,0,completed
+NN-01043,2026-09-24,Vitamin C Serum 30ml,1,420,63,instagram,0,completed
+NN-01044,2026-09-10,Rosemary Hair Oil 100ml,1,260,39,website,40,completed
+NN-01045,2026-09-01,Lip Balm Trio,1,95,0,instagram,0,completed
+NN-01046,2026-09-08,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-01046,2026-09-08,Rosemary Hair Oil 100ml,1,260,0,instagram,0,completed
+NN-01047,2026-09-01,Hydrating Face Cream 50ml,1,380,57,instagram,0,completed
+NN-01048,2026-09-10,Lip Balm Trio,1,95,0,instagram,0,completed
+NN-01049,2026-09-08,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-01050,2026-09-25,Vitamin C Serum 30ml,1,420,0,website,0,completed
+NN-01050,2026-09-25,Hydrating Face Cream 50ml,1,380,0,website,0,completed
+NN-01051,2026-09-27,Vitamin C Serum 30ml,1,420,63,website,40,completed
+NN-01052,2026-09-23,Vitamin C Serum 30ml,1,420,63,instagram,0,completed
+NN-01052,2026-09-23,Lip Balm Trio,1,95,0,instagram,0,completed
+NN-01053,2026-09-05,Hydrating Face Cream 50ml,1,380,0,instagram,0,completed
+NN-01054,2026-09-18,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-01055,2026-09-06,Lip Balm Trio,1,95,14,website,40,completed
+NN-01056,2026-09-14,Rosemary Hair Oil 100ml,1,260,0,instagram,0,completed
+NN-01057,2026-09-20,Lip Balm Trio,1,95,14,website,40,completed
+NN-01058,2026-09-14,Rosemary Hair Oil 100ml,1,260,0,website,40,completed
+NN-01059,2026-09-17,Rosemary Hair Oil 100ml,1,260,0,website,40,completed
+NN-01060,2026-09-12,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-01061,2026-09-12,Lip Balm Trio,1,95,0,instagram,0,completed
+NN-01061,2026-09-12,Hydrating Face Cream 50ml,1,380,0,instagram,0,completed
+NN-01062,2026-09-08,Hydrating Face Cream 50ml,1,380,0,website,40,completed
+NN-01063,2026-09-17,Vitamin C Serum 30ml,1,420,63,website,40,completed
+NN-01064,2026-09-04,Hydrating Face Cream 50ml,1,380,0,website,40,completed
+NN-01065,2026-09-08,Vitamin C Serum 30ml,1,420,63,website,0,completed
+NN-01065,2026-09-08,Vitamin C Serum 30ml,1,420,63,website,0,completed
+NN-01066,2026-09-04,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-01066,2026-09-04,Glow Gift Set,1,950,142,instagram,0,completed
+NN-01067,2026-09-03,Hydrating Face Cream 50ml,1,380,0,website,40,completed
+NN-01068,2026-09-18,Rosemary Hair Oil 100ml,1,260,39,instagram,0,completed
+NN-01069,2026-09-14,Hydrating Face Cream 50ml,1,380,0,instagram,0,completed
+NN-01070,2026-09-04,Hydrating Face Cream 50ml,1,380,57,instagram,0,completed
+NN-01071,2026-09-17,Rosemary Hair Oil 100ml,1,260,39,website,40,completed
+NN-01072,2026-09-20,Glow Gift Set,1,950,0,instagram,0,completed
+NN-01073,2026-09-12,Rosemary Hair Oil 100ml,1,260,39,instagram,0,completed
+NN-01074,2026-09-09,Rosemary Hair Oil 100ml,1,260,0,website,0,completed
+NN-01074,2026-09-09,Hydrating Face Cream 50ml,1,380,0,website,0,completed
+NN-01075,2026-09-14,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-01076,2026-09-28,Rosemary Hair Oil 100ml,1,260,0,instagram,0,completed
+NN-01077,2026-09-12,Vitamin C Serum 30ml,1,420,63,instagram,0,completed
+NN-01078,2026-09-01,Hydrating Face Cream 50ml,1,380,57,instagram,0,completed
+NN-01079,2026-09-21,Lip Balm Trio,1,95,0,website,40,completed
+NN-01080,2026-09-22,Glow Gift Set,1,950,0,website,0,completed
+NN-01081,2026-09-19,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-01082,2026-09-26,Hydrating Face Cream 50ml,1,380,0,website,40,completed
+NN-01083,2026-09-28,Hydrating Face Cream 50ml,1,380,57,instagram,0,completed
+NN-01084,2026-09-14,Rosemary Hair Oil 100ml,1,260,0,website,40,completed
+NN-01085,2026-09-07,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-01086,2026-09-20,Lip Balm Trio,1,95,0,website,40,completed
+NN-01087,2026-09-10,Vitamin C Serum 30ml,1,420,63,website,40,completed
+NN-01087,2026-09-10,Lip Balm Trio,1,95,14,website,40,completed
+NN-01088,2026-09-19,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-01088,2026-09-19,Hydrating Face Cream 50ml,1,380,0,instagram,0,completed
+NN-01089,2026-09-28,Lip Balm Trio,1,95,0,website,0,completed
+NN-01089,2026-09-28,Glow Gift Set,1,950,0,website,0,completed
+NN-01090,2026-09-05,Hydrating Face Cream 50ml,1,380,0,website,40,completed
+NN-01090,2026-09-05,Lip Balm Trio,1,95,14,website,40,completed
+NN-01091,2026-09-14,Lip Balm Trio,1,95,0,instagram,0,completed
+NN-01092,2026-09-25,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-01093,2026-09-20,Glow Gift Set,1,950,0,website,0,completed
+NN-01094,2026-09-04,Hydrating Face Cream 50ml,1,380,0,website,40,completed
+NN-01095,2026-09-01,Vitamin C Serum 30ml,1,420,63,website,40,completed
+NN-01096,2026-09-03,Glow Gift Set,1,950,142,website,0,completed
+NN-01097,2026-09-18,Vitamin C Serum 30ml,1,420,0,website,0,completed
+NN-01097,2026-09-18,Vitamin C Serum 30ml,1,420,0,website,0,completed
+NN-01098,2026-09-19,Vitamin C Serum 30ml,1,420,63,instagram,0,completed
+NN-01099,2026-09-03,Lip Balm Trio,1,95,14,instagram,0,completed
+NN-01100,2026-09-18,Glow Gift Set,1,950,142,website,0,completed
+NN-01101,2026-09-21,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-01101,2026-09-21,Hydrating Face Cream 50ml,1,380,0,instagram,0,completed
+NN-01102,2026-09-07,Lip Balm Trio,1,95,0,website,40,completed
+NN-01103,2026-09-10,Lip Balm Trio,1,95,0,website,0,completed
+NN-01103,2026-09-10,Glow Gift Set,1,950,142,website,0,completed
+NN-01104,2026-09-07,Vitamin C Serum 30ml,1,420,63,instagram,0,completed
+NN-01104,2026-09-07,Rosemary Hair Oil 100ml,1,260,0,instagram,0,completed
+NN-01105,2026-09-09,Hydrating Face Cream 50ml,1,380,57,website,40,completed
+NN-01106,2026-09-08,Lip Balm Trio,1,95,0,website,40,completed
+NN-01106,2026-09-08,Hydrating Face Cream 50ml,1,380,0,website,40,completed
+NN-01107,2026-09-21,Hydrating Face Cream 50ml,1,380,57,website,40,completed
+NN-01108,2026-09-12,Glow Gift Set,1,950,0,instagram,0,completed
+NN-01109,2026-09-26,Lip Balm Trio,1,95,0,website,40,completed
+NN-01110,2026-09-05,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-01111,2026-09-04,Vitamin C Serum 30ml,1,420,63,website,40,completed
+NN-01112,2026-09-15,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-01113,2026-09-06,Lip Balm Trio,1,95,0,website,0,completed
+NN-01113,2026-09-06,Glow Gift Set,1,950,142,website,0,completed
+NN-01114,2026-09-14,Lip Balm Trio,1,95,0,website,40,completed
+NN-01114,2026-09-14,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-01115,2026-09-20,Glow Gift Set,1,950,0,website,0,completed
+NN-01116,2026-09-11,Rosemary Hair Oil 100ml,1,260,0,instagram,0,completed
+NN-01117,2026-09-18,Vitamin C Serum 30ml,1,420,63,website,40,completed
+NN-01118,2026-09-24,Lip Balm Trio,1,95,0,instagram,0,completed
+NN-01118,2026-09-24,Hydrating Face Cream 50ml,1,380,0,instagram,0,completed
+NN-01119,2026-09-24,Vitamin C Serum 30ml,1,420,63,instagram,0,completed
+NN-01120,2026-09-25,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-01121,2026-09-14,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-01122,2026-09-02,Rosemary Hair Oil 100ml,1,260,0,website,40,completed
+NN-01123,2026-09-08,Vitamin C Serum 30ml,1,420,63,website,40,completed
+NN-01124,2026-09-09,Rosemary Hair Oil 100ml,1,260,0,instagram,0,completed
+NN-01125,2026-09-03,Glow Gift Set,1,950,0,instagram,0,completed
+NN-01126,2026-09-03,Lip Balm Trio,1,95,14,instagram,0,completed
+NN-01127,2026-09-03,Lip Balm Trio,1,95,0,website,40,completed
+NN-01128,2026-09-01,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-01129,2026-09-02,Vitamin C Serum 30ml,1,420,63,website,0,completed
+NN-01129,2026-09-02,Vitamin C Serum 30ml,1,420,0,website,0,completed
+NN-01130,2026-09-02,Hydrating Face Cream 50ml,1,380,0,website,40,completed
+NN-01130,2026-09-02,Lip Balm Trio,1,95,14,website,40,completed
+NN-01131,2026-09-23,Vitamin C Serum 30ml,1,420,0,website,40,completed
+NN-01132,2026-09-03,Hydrating Face Cream 50ml,1,380,0,website,40,completed
+NN-01133,2026-09-10,Rosemary Hair Oil 100ml,1,260,39,website,40,completed
+NN-01134,2026-09-25,Hydrating Face Cream 50ml,1,380,57,website,40,completed
+NN-01135,2026-09-06,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-01136,2026-09-15,Glow Gift Set,1,950,0,website,0,completed
+NN-01136,2026-09-15,Glow Gift Set,1,950,0,website,0,completed
+NN-01137,2026-09-11,Vitamin C Serum 30ml,1,420,0,instagram,0,completed
+NN-01138,2026-09-20,Rosemary Hair Oil 100ml,1,260,39,instagram,0,completed
+NN-01139,2026-09-27,Rosemary Hair Oil 100ml,1,260,0,website,40,completed
+NN-01140,2026-09-18,Lip Balm Trio,1,95,0,instagram,0,completed
